@@ -1,4 +1,4 @@
-function quickSort (arr) {
+function quickSort (arr: any[]): any[] {
   if (arr.length < 2) return arr
 
   const lesser = []
@@ -7,6 +7,7 @@ function quickSort (arr) {
   // extract benchmark item from original array
   const benchmark = arr.splice(Math.floor(arr.length / 2), 1)[0]
 
+  // Comparison module
   arr.forEach(item => {
     item <= benchmark ? greater.push(item) : lesser.push(item)
   })
@@ -14,3 +15,5 @@ function quickSort (arr) {
   // recursive calling
   return quickSort(greater).concat(benchmark, quickSort(lesser))
 }
+
+// https://en.wikipedia.org/wiki/Quicksort

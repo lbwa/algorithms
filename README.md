@@ -1,3 +1,3 @@
 # Algorithm
 
-This repo is used to record some algorithm implemented by JavaScript.
+This repository is used to record usual algorithms implemented by JavaScript, TypeScript.
