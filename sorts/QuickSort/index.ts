@@ -1,4 +1,4 @@
-function quickSort (arr: any[]): any[] {
+export default function quickSort (arr: any[]): any[] {
   if (arr.length < 2) return arr
 
   const lesser = []
