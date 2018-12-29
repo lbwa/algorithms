@@ -1,0 +1,13 @@
+{
+  "name": "algorithms",
+  "version": "0.1.0",
+  "description": "This project is used to record usual algorithms implemented by JavaScript, TypeScript.",
+  "main": "index.js",
+  "repository": "https://github.com/lbwa/algorithms.git",
+  "author": "lbwa <32980314+lbwa@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^3.2.2"
+  }
+}
