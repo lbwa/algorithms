@@ -7,6 +7,9 @@
   "author": "lbwa <32980314+lbwa@users.noreply.github.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "ts": "rm -vrf dist/* && npx tsc"
+  },
   "devDependencies": {
     "typescript": "^3.2.2"
   }
