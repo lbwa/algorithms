@@ -5,9 +5,7 @@ export default function bubbleSort (arr: any[]): any[] {
     swapped = false
     for (let i = 0; i < arr.length - 1; i++) {
       if (arr[i] > arr[i + 1]) {
-        let temp = arr[i]
-        arr[i] = arr[i + 1]
-        arr[i + 1] = temp
+        exchangeItem(arr, i, i + 1)
         // Reset `iteration` tag when element of array swapping is occurred.
         swapped = true
       }
@@ -15,6 +13,12 @@ export default function bubbleSort (arr: any[]): any[] {
   }
 
   return arr
+}
+
+function exchangeItem (arr: any[], originIndex: number, targetIndex: number) {
+  let temp = arr[originIndex]
+  arr[originIndex] = arr[targetIndex]
+  arr[targetIndex] = temp
 }
 
 // https://en.wikipedia.org/wiki/Bubble_sort
