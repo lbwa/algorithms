@@ -1,9 +1,9 @@
 import Queue from '../index'
 
-const maxQueueLength = 9
-const queue = new Queue(maxQueueLength)
-
 describe('Queue', () => {
+  const maxQueueLength = 9
+  const queue = new Queue(maxQueueLength)
+
   it('should create empty queue', () => {
     expect(queue.queue.length).toEqual(0)
   })
