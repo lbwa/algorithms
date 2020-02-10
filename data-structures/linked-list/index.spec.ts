@@ -23,7 +23,7 @@ describe('Singly linked list', () => {
     expect(list.head).toEqual(list.tail)
   })
 
-  it('append a element into a linked list', () => {
+  it('append a element', () => {
     const items = [{ index: 1 }, 2, { name: 3 }]
     const list = new LinkedList(items[0])
     list.append(items[1])
@@ -37,5 +37,24 @@ describe('Singly linked list', () => {
       current = current.next
     }
     expect(current.value).toEqual(items[2])
+  })
+
+  it('prepend a element into a empty linked list', () => {
+    const item = { name: 'item' }
+    const list = new LinkedList<typeof item>()
+    list.prepend(item)
+    expect(list.head!.value).toEqual(item)
+    expect(list.head).toEqual(list.tail)
+  })
+
+  it('prepend a element', () => {
+    const items = [{ index: 1 }, 2, [3]]
+    const list = new LinkedList(items[0])
+
+    list.prepend(items[1])
+    expect(list.head!.value).toEqual(items[1])
+    expect(list.tail!.value).toEqual(items[0])
+    list.prepend(items[2])
+    expect(list.head!.value).toEqual(items[2])
   })
 })

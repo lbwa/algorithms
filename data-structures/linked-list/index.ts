@@ -33,4 +33,16 @@ export class LinkedList<E> {
     this.tail = this.tail.next = node
     return this
   }
+
+  prepend(element: E) {
+    const head = createNode(element)
+    if (!isDef(this.head) || !isDef(this.tail)) {
+      this.head = this.tail = head
+      return this
+    }
+
+    head.next = this.head
+    this.head = head
+    return this
+  }
 }
