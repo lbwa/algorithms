@@ -1,32 +1,31 @@
-/**
- * @structure Queue
- * @feature FIFO, first in first out
- * @wiki https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
- * @usage
- * const queue = new Queue(10)
- * queue.enqueue({ name: 'hi' })
- * queue.dequeue()
- */
-
 interface Item {
   name: string
   [key: string]: any
 }
 
-export default class Queue {
-  queue: Item[]
-  nameMap: { [key: string]: Item }
-  maxLen: number
-  constructor(maxLen = 10) {
+/**
+ * @structure Queue
+ * @feature FIFO, first in first out
+ * @wiki https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
+ * @usage
+ * const queue = new Queue(10);
+ * queue.enqueue({ name: 'hi' });
+ * queue.dequeue();
+ */
+export default class Queue<I extends Item> {
+  queue: I[]
+  nameMap: Record<string | symbol | number, any>
+  threshold: number
+  constructor(threshold = 10) {
     this.queue = []
     this.nameMap = {}
-    this.maxLen = maxLen
+    this.threshold = threshold
   }
 
-  enqueue(item: Item) {
+  enqueue(item: I) {
     if (!this.nameMap[item.name]) {
       // exceed limit
-      if (this.queue.length >= this.maxLen) {
+      if (this.queue.length >= this.threshold) {
         this.dequeue()
       }
       // enqueue new one
@@ -41,13 +40,13 @@ export default class Queue {
 
   dequeue() {
     if (this.queue.length) {
-      delete this.nameMap[(this.queue.shift() as Item).name]
+      delete this.nameMap[this.queue.shift()!.name]
     }
     return this
   }
 
-  private requeue(item: Item) {
-    const queue: Item[] = []
+  private requeue(item: I) {
+    const queue: I[] = []
     let last = null
     for (const queueItem of this.queue) {
       if (item.name !== queueItem.name) {

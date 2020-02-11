@@ -1,4 +1,4 @@
-import Queue from '../index'
+import Queue from './index'
 
 describe('Queue', () => {
   const maxQueueLength = 9
