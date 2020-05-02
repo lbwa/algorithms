@@ -1,3 +1,7 @@
 export function createRandomListCopy() {
-  return [9, 15, 3, 6, 9, 20, 10, 4]
+  return new Array(20).fill(null).map(() => Math.ceil(Math.random() * 20))
+}
+
+export function comparator(a: number, b: number) {
+  return a > b
 }

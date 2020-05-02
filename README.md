@@ -8,6 +8,18 @@
 
 This repository is used to record usual algorithms implemented by JavaScript, TypeScript.
 
+<!-- TOC -->
+
+- [Installing](#installing)
+- [Compiling](#compiling)
+- [Unit test](#unit-test)
+- [Big O notation](#big-o-notation)
+  - [Syntax](#syntax)
+  - [Basic rules](#basic-rules)
+- [Further readings](#further-readings)
+
+<!-- /TOC -->
+
 ## Installing
 
 ```bash
@@ -125,6 +137,7 @@ Like `O(n)`. `n` is just a variable name and it could be replace by any characte
 
    `doThis`'s complexity is `O(n squared)`.
 
-### Further readings
+## Further readings
 
 - [Youtube - Big O Notation](https://www.youtube.com/watch?v=v4cd1O4zkGw)
+- [Algorithms 4th - sort](https://algs4.cs.princeton.edu/20sorting/)

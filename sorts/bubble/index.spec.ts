@@ -1,10 +1,10 @@
-import { bubbleSort, defaultComparator } from './index'
-import { createRandomListCopy } from '../shared/utils'
+import { bubbleSort } from './index'
+import { createRandomListCopy, comparator } from '../shared/utils'
 
 describe('BubbleSort', () => {
   it('Should sort a list with default comparator', () => {
     const pending = createRandomListCopy()
-    const result = bubbleSort(pending, defaultComparator)
+    const result = bubbleSort(pending, comparator)
     expect(
       result.every(
         (item, index) =>
