@@ -1,5 +1,6 @@
 /**
- * @description 每次排序之后，重置 iteration 标识，并执行新一轮的相邻元素比较
+ * @description 每次排序之后，重置 iteration 标识，并执行新一轮的迭代相邻元素比较，直
+ * 到一次迭代下来没有任何的相邻元素交换，即表示完成了整个列表的排序。
  * @param list
  * @param comparator
  * @wiki https://en.wikipedia.org/wiki/Bubble_sort
@@ -21,9 +22,10 @@ export function bubbleSort<E>(list: E[], comparator: (a: E, b: E) => boolean) {
         swapped = true
       }
     }
-    // 因为我们始终是从首项开始顺序迭代，那么若此时顺序迭代完整个列表，且没有发生交换，
-    // 那么此时的 swapped 变量为 false，即表示经历了从首项到末项的每相邻的两项都
-    // 满足 comparator(a, b) 函数，即表示完成了整个列表的排序，此时将跳出 while 循环
+    // 因为我们始终是从首项开始顺序迭代，并且始终比较相邻两项，那么若此时顺序迭代完整个
+    // 列表，且没有发生交换，那么此时的 swapped 变量为 false，即表示经历了从首项到末
+    // 项的每相邻的两项都满足 comparator(a, b) 函数，即表示完成了整个列表的排序，此时
+    // 将跳出 while 循环
   }
 
   return list
@@ -48,8 +50,9 @@ export function optimizedBubbleSort<E>(
       }
     }
 
-    // 因为我们每次都排序的一项为当次迭代循环中的极值项，那么我们在下一次顺序迭代中
-    // 可以忽略排序过的项，即下一轮迭代仅顺序迭代 len - 1 项，而不再是整个列表
+    // 因为我们每次都排序的一项为当次迭代循环中的极值项，且始终比较相邻两项，那么我们在
+    // 下一次顺序迭代中可以忽略排序过的项，即下一轮迭代仅顺序迭代 len - 1 项，而不再是
+    // 整个列表
     len--
   }
 
