@@ -3,6 +3,9 @@
 - [What](#what)
 - [How](#how)
 - [Core](#core)
+- [Implementation](#implementation)
+  - [Pseudocode implementation](#pseudocode-implementation)
+  - [Optimizing bubble sort](#optimizing-bubble-sort)
 - [Complexity](#complexity)
 - [Visualization](#visualization)
 - [References](#references)
@@ -42,6 +45,70 @@ An example of bubble sort. Starting from the beginning of the list, compare ever
 始终通过 **顺序迭代相邻两项** 至数组 **结尾**，通过 **交换两项** 来实现始终 **下沉** 不符合 `comparator` 的比较项，一次完整的顺序迭代，应该 **始终有一个** 迭代期间的 **最大项交换到数组末尾**。不断重复迭代，直至一次顺序迭代中不再发生数组项的交换。
 
 冒泡（下沉）排序的本质就是通过多次相邻两项比较，不断冒泡（下沉）极值项实现排序。
+
+## Implementation
+
+### Pseudocode implementation
+
+In pseudocode the algorithm can be expressed as (0-based array):
+
+```
+procedure bubbleSort(A : list of sortable items)
+    n := length(A)
+    repeat
+        swapped := false
+        for i := 1 to n-1 inclusive do
+            /* if this pair is out of order */
+            if A[i-1] > A[i] then
+                /* swap them and remember something changed */
+                swap(A[i-1], A[i])
+                swapped := true
+            end if
+        end for
+    until not swapped
+end procedure
+
+```
+
+### Optimizing bubble sort
+
+The bubble sort algorithm can be optimized by observing that the n-th pass finds the n-th largest element and puts it into its final place. So, the inner loop can avoid looking at the last n − 1 items when running for the n-th time:
+
+```
+procedure bubbleSort(A : list of sortable items)
+    n := length(A)
+    repeat
+        swapped := false
+        for i := 1 to n - 1 inclusive do
+            if A[i - 1] > A[i] then
+                swap(A[i - 1], A[i])
+                swapped = true
+            end if
+        end for
+        n := n - 1
+    until not swapped
+end procedure
+```
+
+More generally, it can happen that more than one element is placed in their final position on a single pass. In particular, after every pass, all elements after the last swap are sorted, and do not need to be checked again. This allows to skip over many elements, resulting in about a worst case 50% improvement in comparison count (though no improvement in swap counts), and adds very little complexity because the new code subsumes the "swapped" variable:
+
+To accomplish this in pseudocode, the following can be written:
+
+```
+procedure bubbleSort(A : list of sortable items)
+    n := length(A)
+    repeat
+        newn := 0
+        for i := 1 to n - 1 inclusive do
+            if A[i - 1] > A[i] then
+                swap(A[i - 1], A[i])
+                newn := i
+            end if
+        end for
+        n := newn
+    until n ≤ 1
+end procedure
+```
 
 ## Complexity
 
