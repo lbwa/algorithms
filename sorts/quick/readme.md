@@ -5,6 +5,9 @@
   - [非就地排序](#%E9%9D%9E%E5%B0%B1%E5%9C%B0%E6%8E%92%E5%BA%8F)
 - [Core](#core)
 - [Implementation](#implementation)
+  - [非就地快速排序](#%E9%9D%9E%E5%B0%B1%E5%9C%B0%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F)
+  - [就地排序](#%E5%B0%B1%E5%9C%B0%E6%8E%92%E5%BA%8F)
+    - [Hoare 分区方案](#hoare-%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88)
 - [Visualization](#visualization)
 - [References](#references)
 
@@ -44,7 +47,42 @@ Quicksort is a comparison sort, meaning that it can sort items of any type for w
 
 ## Implementation
 
+### 非就地快速排序
+
+见 [非就地排序](#非就地排序)
+
+### 就地排序
+
+#### Hoare 分区方案
+
+> [Details](https://en.wikipedia.org/wiki/Quicksort#Hoare_partition_scheme)
+
+```
+algorithm quicksort(A, lo, hi) is
+    if lo < hi then
+        p := partition(A, lo, hi)
+        quicksort(A, lo, p)
+        quicksort(A, p + 1, hi)
+
+algorithm partition(A, lo, hi) is
+    pivot := A[⌊(hi + lo) / 2⌋]
+    i := lo - 1
+    j := hi + 1
+    loop forever
+        do
+            i := i + 1
+        while A[i] < pivot
+        do
+            j := j - 1
+        while A[j] > pivot
+        if i ≥ j then
+            return j
+        swap A[i] with A[j]
+```
+
 ## Visualization
+
+[Algorithm visualizer - quick sort](https://algorithm-visualizer.org/divide-and-conquer/quicksort)
 
 ## References
 
