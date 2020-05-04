@@ -1,13 +1,13 @@
-import { quickSort, QuickSort } from './index'
+import { quickSortNotInPlace, QuickSortNotInPlace } from './index'
 import { createRandomListCopy, comparator } from '../shared/utils'
 
-describe('Quick sort', () => {
+describe('Quick sort without in-place', () => {
   let before: number[]
   let after: number[]
 
   beforeEach(() => {
     before = createRandomListCopy()
-    after = quickSort(before, comparator)
+    after = quickSortNotInPlace(before, comparator)
   })
 
   it('Should result a same length', () => {
@@ -23,7 +23,7 @@ describe('Quick sort', () => {
   })
 
   it('Should sort a list with custom comparator', () => {
-    const after = quickSort(before, (a: number, b: number) => a < b)
+    const after = quickSortNotInPlace(before, (a: number, b: number) => a < b)
     expect(
       after.every(
         (item, index) => index === after.length - 1 || item >= after[index + 1]
@@ -32,13 +32,13 @@ describe('Quick sort', () => {
   })
 })
 
-describe('QuickSort class', () => {
+describe('QuickSortNotInPlace without in-place', () => {
   let before: number[]
   let after: number[]
 
   beforeEach(() => {
     before = createRandomListCopy()
-    after = new QuickSort(before, comparator).partition(0).sort()
+    after = new QuickSortNotInPlace(before, comparator).partition(0).sort()
   })
 
   it('Should sort a list with default comparator', () => {
@@ -51,7 +51,10 @@ describe('QuickSort class', () => {
   })
 
   it('Should sort a list with custom comparator', () => {
-    const after = new QuickSort(before, (a: number, b: number) => a < b)
+    const after = new QuickSortNotInPlace(
+      before,
+      (a: number, b: number) => a < b
+    )
       .partition(0)
       .sort()
 

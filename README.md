@@ -141,3 +141,4 @@ Like `O(n)`. `n` is just a variable name and it could be replace by any characte
 
 - [Youtube - Big O Notation](https://www.youtube.com/watch?v=v4cd1O4zkGw)
 - [Algorithms 4th - sort](https://algs4.cs.princeton.edu/20sorting/)
+- [toptal - sorting algorithms](https://www.toptal.com/developers/sorting-algorithms)

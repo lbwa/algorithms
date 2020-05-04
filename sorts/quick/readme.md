@@ -2,6 +2,7 @@
 
 - [What](#what)
 - [How](#how)
+  - [非就地排序](#%E9%9D%9E%E5%B0%B1%E5%9C%B0%E6%8E%92%E5%BA%8F)
 - [Core](#core)
 - [Implementation](#implementation)
 - [Visualization](#visualization)
@@ -26,6 +27,8 @@ Quicksort is a comparison sort, meaning that it can sort items of any type for w
 ![quick sort](./img/animation.gif)
 
 ## How
+
+### 非就地排序
 
 1. 选取排序基准 `pivot` 变量；
 

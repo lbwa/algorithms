@@ -3,15 +3,20 @@
  * @param list
  * @param comparator
  * @wiki https://en.wikipedia.org/wiki/Quicksort
+ * @algs https://algs4.cs.princeton.edu/23quicksort/
  */
 
-export function quickSort<E>(
+/**
+ * 快速排序的 “非就地排序” 版本
+ */
+export function quickSortNotInPlace<E>(
   list: E[],
   comparator: (a: E, b: E) => boolean
 ): E[] {
   // 递归终止条件
   if (list.length < 2) return list
 
+  // 选取第 i（此处为 0）项为 “分区项 partition item”
   const [pivot, ...subList] = list
   const subLeft = []
   const subRight = []
@@ -24,21 +29,29 @@ export function quickSort<E>(
     }
   }
 
-  return quickSort(subLeft, comparator).concat(
+  return quickSortNotInPlace(subLeft, comparator).concat(
     pivot,
-    quickSort(subRight, comparator)
+    quickSortNotInPlace(subRight, comparator)
   )
 }
 
-export class QuickSort<E> {
+/**
+ * 快速排序的 “非就地排序” 版本
+ */
+export class QuickSortNotInPlace<E> {
   private pivot: E = this.list[0]
+  private partitionIndex = 0
   private subList: E[] = []
   private subLeft: E[] = []
   private subRight: E[] = []
 
   constructor(public list: E[], private comparator: (a: E, b: E) => boolean) {}
 
-  partition(index: number = 0) {
+  /**
+   * 选取第 i 项作为分区项 partition item
+   */
+  partition(index = this.partitionIndex) {
+    this.partitionIndex = index
     this.pivot = this.list[index]
     this.subList = this.list.filter((_, i) => i !== index)
     return this
@@ -56,12 +69,14 @@ export class QuickSort<E> {
       }
     }
 
-    return new QuickSort(this.subLeft, this.comparator)
-      .partition(0)
+    return new QuickSortNotInPlace(this.subLeft, this.comparator)
+      .partition(this.partitionIndex)
       .sort()
       .concat(
         this.pivot,
-        new QuickSort(this.subRight, this.comparator).partition(0).sort()
+        new QuickSortNotInPlace(this.subRight, this.comparator)
+          .partition(this.partitionIndex)
+          .sort()
       )
   }
 }
