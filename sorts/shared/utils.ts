@@ -24,7 +24,7 @@ export function exchange<E>(list: E[], a: number, b: number) {
 
 export function isSorted<E>(
   list: E[],
-  comparator: Comparator<E> = (a, b) => a >= b
+  comparator: Comparator<E> = (a, b) => a <= b
 ) {
   return list.every(
     (item, index) =>

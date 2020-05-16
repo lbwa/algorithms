@@ -1,30 +1,18 @@
+import { exchange } from '../shared/utils'
+
 /**
- * @description
- * @param unsortedList
- * @wiki https://en.wikipedia.org/wiki/Insertion_sort
+ * insertion sort
+ * 时间复杂度 О(n²)
+ * 空间复杂度 О(n)，需要辅助空间O(1)
+ * @see https://en.wikipedia.org/wiki/Insertion_sort
+ * @see https://algs4.cs.princeton.edu/21elementary/
  */
-export function insertionSort<I>(
-  unsortedList: I[],
-  comparator: (a: I, b: I) => boolean
-): I[] {
-  for (let i = 1; i < unsortedList.length; i++) {
-    // Sorted part scanning based on sort benchmark unsortedList[i]
-    for (let j = 0; j < i; j++) {
-      // unsortedList[j] is current active element
-      // when active element greater than sort benchmark unsortedList[i]
-      if (comparator(unsortedList[i], unsortedList[j])) {
-        // 1. insert active element
-        unsortedList.splice(j, 0, unsortedList[i])
-        // 2. delete original active element
-        unsortedList.splice(i + 1, 1)
-        // 3. Exit current for-loop when insertion activated
-        break
-      }
+export function insertionSort<E>(list: E[], comparator: Comparator<E>) {
+  for (let i = 0; i < list.length; i++) {
+    // 将 a[j] 项插入到之前排序的 a[0] ~ a[i] 项之间的合适位置
+    for (let j = i; j > 0 && comparator(list[j - 1], list[j]); j--) {
+      exchange(list, j, j - 1)
     }
   }
-  return unsortedList
-}
-
-export function defaultComparator(a: number, b: number) {
-  return a < b
+  return list
 }
