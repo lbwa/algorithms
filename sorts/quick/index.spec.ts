@@ -1,5 +1,5 @@
 import { quickSortNotInPlace, QuickSortNotInPlace } from './index'
-import { createRandomListCopy, comparator } from '../shared/utils'
+import { createRandomListCopy, greaterThan } from '../shared/utils'
 
 describe('Quick sort without in-place', () => {
   let before: number[]
@@ -7,7 +7,7 @@ describe('Quick sort without in-place', () => {
 
   beforeEach(() => {
     before = createRandomListCopy()
-    after = quickSortNotInPlace(before, comparator)
+    after = quickSortNotInPlace(before, greaterThan)
   })
 
   it('Should result a same length', () => {
@@ -38,7 +38,7 @@ describe('QuickSortNotInPlace without in-place', () => {
 
   beforeEach(() => {
     before = createRandomListCopy()
-    after = new QuickSortNotInPlace(before, comparator).partition(0).sort()
+    after = new QuickSortNotInPlace(before, greaterThan).partition(0).sort()
   })
 
   it('Should sort a list with default comparator', () => {
