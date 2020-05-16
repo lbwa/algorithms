@@ -16,7 +16,8 @@
   },
   "include": [
     "data-structures/**/*",
-    "sorts/**/*"
+    "sorts/**/*",
+    "*.d.ts"
   ],
   "exclude": [
     "node_modules"
