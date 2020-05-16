@@ -14,11 +14,13 @@ import { exchange } from '../shared/utils'
 
 export function selectionSort<E>(list: E[], comparator: Comparator<E>) {
   for (let i = 0; i < list.length; i++) {
+    let min = i
     for (let j = i + 1; j < list.length; j++) {
-      if (comparator(list[i], list[j])) {
-        exchange(list, i, j)
+      if (comparator(list[min], list[j])) {
+        min = j
       }
     }
+    exchange(list, i, min)
   }
   return list
 }
