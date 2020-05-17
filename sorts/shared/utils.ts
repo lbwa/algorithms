@@ -17,9 +17,7 @@ export function lessThan(a: number, b: number) {
 }
 
 export function exchange<E>(list: E[], a: number, b: number) {
-  const temp = list[a]
-  list[a] = list[b]
-  list[b] = temp
+  ;[list[a], list[b]] = [list[b], list[a]]
 }
 
 export function isSorted<E>(

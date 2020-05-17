@@ -1,10 +1,37 @@
+import { exchange } from 'sorts/shared/utils'
+
 /**
- * @description
- * @param list
- * @param comparator
- * @wiki https://en.wikipedia.org/wiki/Quicksort
- * @algs https://algs4.cs.princeton.edu/23quicksort/
+ * 快速排序（原地排序）
+ * @see https://en.wikipedia.org/wiki/Quicksort
+ * @see https://algs4.cs.princeton.edu/23quicksort/
  */
+export class QuickSort<E> {
+  constructor(private list: E[], private comparator: Comparator<E>) {
+    this.sort(this.list, 0, this.list.length - 1)
+  }
+
+  private sort(list: E[], low: number, high: number) {
+    if (high <= low) return
+    const j = this.partition(list, low, high)
+    this.sort(list, low, j - 1) // 使得 a[low ~ j - 1] 项都不大于 a[j]
+    this.sort(list, j + 1, high) // 使得 a[j + 1 ~ high] 项都不小于 a[j]
+    return list
+  }
+
+  private partition(list: E[], low: number, high: number) {
+    const pivot = list[high]
+    // 借助双指针中快慢指针，实现分区排序
+    let i = low // i is slow pointer, j is fast pointer
+    for (let j = low; j < high; j++) {
+      if (this.comparator(list[j], pivot)) {
+        exchange(list, i, j)
+        i++
+      }
+    }
+    exchange(list, i, high)
+    return i
+  }
+}
 
 /**
  * 快速排序的 “非就地排序” 版本
