@@ -95,3 +95,40 @@ export function mergeSort<E>(list: E[], comparator: Comparator<E>) {
 
   return list
 }
+
+export function mergeSortBottomUp<E>(list: E[], comparator: Comparator<E>) {
+  const aux: E[] = []
+
+  function sort(list: E[]) {
+    let len = list.length
+    for (let sz = 1; sz < len; sz = sz + sz) {
+      for (let low = 0; low < len - sz; low += sz + sz) {
+        merge(list, low, low + sz - 1, Math.min(low + sz + sz - 1, len - 1))
+      }
+    }
+  }
+
+  function merge(list: E[], low: number, mid: number, high: number) {
+    for (let k = low; k <= high; k++) {
+      aux[k] = list[k]
+    }
+
+    let leftPointer = low
+    let rightPointer = mid + 1
+    for (let k = low; k <= high; k++) {
+      if (leftPointer > mid) {
+        list[k] = aux[rightPointer++]
+      } else if (rightPointer > high) {
+        list[k] = aux[leftPointer++]
+      } else if (comparator(aux[leftPointer], aux[rightPointer])) {
+        list[k] = aux[rightPointer++]
+      } else {
+        list[k] = aux[leftPointer++]
+      }
+    }
+  }
+
+  sort(list)
+
+  return list
+}

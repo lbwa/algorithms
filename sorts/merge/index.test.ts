@@ -1,4 +1,4 @@
-import { MergeSort, mergeSort } from './index'
+import { MergeSort, mergeSort, mergeSortBottomUp } from './index'
 import { isSorted, createRandomListCopy, greaterThan } from 'sorts/shared/utils'
 
 describe('Merge sort', () => {
@@ -11,6 +11,12 @@ describe('Merge sort', () => {
   it('Should be sorted by mergeSort function', () => {
     expect(
       isSorted(mergeSort(createRandomListCopy(), greaterThan))
+    ).toBeTruthy()
+  })
+
+  it('Should be sorted by mergeSortBottomUp function', () => {
+    expect(
+      isSorted(mergeSortBottomUp(createRandomListCopy(), greaterThan))
     ).toBeTruthy()
   })
 })
