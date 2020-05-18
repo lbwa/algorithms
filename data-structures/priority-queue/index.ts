@@ -3,6 +3,12 @@
  * 两个子节点
  * @see https://en.wikipedia.org/wiki/Binary_tree
  *
+ * 二叉树类型：
+ * @see http://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees
+ * - 完全二叉树：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大
+ * 值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层，则该层包含
+ * 1 ~ 2^h 个节点。
+ *
  * 堆：一种基于树性结构的抽象数据结构，常见实现有基于二叉树实现的二叉堆。二叉堆常简称堆
  * @see https://en.wikipedia.org/wiki/Heap_(data_structure)
  *
@@ -24,19 +30,19 @@
  * 个子节点的位置分别为 2k 和 2k + 1
  */
 
+import { lessThan, exchange } from 'shared/utils'
+
 /**
  * 在优先级队列中，高优先级的节点始终在低优先级节点之前。因为 `二叉堆`（简称 `堆`）结构
  * 的根节点始终是数据集合中的极值，那么使用 `二叉堆` 实现优先级队列
  * @see https://algs4.cs.princeton.edu/24pq/
  * @see https://en.wikipedia.org/wiki/Priority_queue
  */
-export class PriorityQueue<E> {
+export class PriorityQueue<E extends number> {
   /**
    * 完全二叉树只用数组而不需要指针就可表示，将二叉树的几点
    */
-  private heap: [null, ...E[]] = [null]
-
-  constructor(private capacity: number) {}
+  heap: [null, ...E[]] = [null]
 
   /**
    * 当前优先级队列是否为空队列
@@ -60,12 +66,72 @@ export class PriorityQueue<E> {
   }
 
   /**
+   * 指定项的索引实现上浮指定项操作
+   * @param index 待操作项的索引
+   */
+  private swim(index: number) {
+    // 第 k 项的父节点为 k / 2（向下取整）
+    while (
+      index > 1 &&
+      lessThan(this.heap[index >> 1] as number, this.heap[index] as number)
+    ) {
+      // 默认为最大堆，故上浮大的值
+      exchange(this.heap, index >> 1, index)
+      index = index >> 1
+    }
+  }
+
+  /**
+   * 通过指定项的索引实现下沉操作
+   * @param index 待操作项的索引
+   */
+  private sink(index: number) {
+    while (2 * index <= this.size) {
+      let childIndex = 2 * index
+
+      // 当右侧子节点大于左侧子节点时，选择右侧子节点，因为每次下沉操作总时对应了一个
+      // 大项子节点的上浮
+      if (
+        childIndex < this.size &&
+        lessThan(
+          this.heap[childIndex] as number,
+          this.heap[childIndex + 1] as number
+        )
+      ) {
+        childIndex++
+      }
+
+      // 当 index 节点不再小于子节点时，那么停止下沉操作
+      if (
+        !lessThan(this.heap[index] as number, this.heap[childIndex] as number)
+      )
+        break
+
+      // 下沉指定节点，并上浮对应的较大子节点
+      exchange(this.heap, childIndex, index)
+      index = childIndex
+    }
+  }
+
+  /**
    * 插入一项到当前优先级队列中
    */
-  insert(el: E) {}
+  insert(el: E) {
+    // this.size 的值为旧的最后一项索引
+    const newIndex = this.size + 1
+    this.heap[newIndex] = el
+    this.swim(newIndex) // 上浮节点，恢复 `堆有序`
+  }
 
   /**
    * 删除并返回当前优先级队列中的最高优先级项
    */
-  deleteHightest() {}
+  deleteHightest() {
+    if (this.size <= 0) return
+    exchange(this.heap, 1, this.size)
+    const deleted = this.heap[this.size]
+    this.heap.length -= 1 // 删除被交换至最后一项的待删除节点
+    this.sink(1) // 下沉根节点，恢复 `堆有序`
+    return deleted
+  }
 }

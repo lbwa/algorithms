@@ -10,7 +10,8 @@ module.exports = {
 
   // https://jestjs.io/docs/en/configuration#modulenamemapper-objectstring-string--arraystring
   moduleNameMapper: {
-    'sorts/(.*)': '<rootDir>/sorts/$1',
+    '^sorts/(.*)': '<rootDir>/sorts/$1',
+    '^shared/(.*)': '<rootDir>/shared/$1',
   },
 
   preset: 'ts-jest',
