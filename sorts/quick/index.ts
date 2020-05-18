@@ -1,4 +1,4 @@
-import { exchange } from 'sorts/shared/utils'
+import { exchange } from 'shared/utils'
 
 /**
  * 快速排序（原地排序）

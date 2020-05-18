@@ -1,10 +1,9 @@
 import { shellSort } from './index'
-import { isSorted, createRandomListCopy, greaterThan } from '../shared/utils'
+import { createRandomArray, greaterThan } from 'shared/utils'
+import { isSorted } from '../shared/utils'
 
 describe('Shell sort', () => {
   it('Should be sorted', () => {
-    expect(
-      isSorted(shellSort(createRandomListCopy(), greaterThan))
-    ).toBeTruthy()
+    expect(isSorted(shellSort(createRandomArray(), greaterThan))).toBeTruthy()
   })
 })

@@ -1,4 +1,4 @@
-import { exchange } from '../shared/utils'
+import { exchange } from 'shared/utils'
 
 /**
  * 希尔排序

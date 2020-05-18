@@ -10,7 +10,7 @@
  * @see https://en.wikipedia.org/wiki/Selection_sort
  */
 
-import { exchange } from '../shared/utils'
+import { exchange } from 'shared/utils'
 
 export function selectionSort<E>(list: E[], comparator: Comparator<E>) {
   for (let i = 0; i < list.length; i++) {

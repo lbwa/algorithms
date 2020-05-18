@@ -1,20 +1,16 @@
 import { quickSortNotInPlace, QuickSortNotInPlace, QuickSort } from './index'
-import {
-  createRandomListCopy,
-  greaterThan,
-  isSorted,
-  lessThan,
-} from '../shared/utils'
+import { createRandomArray, greaterThan, lessThan } from 'shared/utils'
+import { isSorted } from '../shared/utils'
 
 describe('Quick sort with in-place', () => {
   it('Should be sorted by QuickSort class', () => {
-    const list = createRandomListCopy()
+    const list = createRandomArray()
     new QuickSort(list, lessThan)
     expect(isSorted(list)).toBeTruthy()
   })
 
   it('Should be sorted by QuickSort class', () => {
-    const list = createRandomListCopy()
+    const list = createRandomArray()
     new QuickSort(list, greaterThan)
     expect(isSorted(list, (a: number, b: number) => a >= b)).toBeTruthy()
   })
@@ -25,7 +21,7 @@ describe('Quick sort without in-place', () => {
   let after: number[]
 
   beforeEach(() => {
-    before = createRandomListCopy()
+    before = createRandomArray()
     after = quickSortNotInPlace(before, greaterThan)
   })
 
@@ -56,7 +52,7 @@ describe('QuickSortNotInPlace without in-place', () => {
   let after: number[]
 
   beforeEach(() => {
-    before = createRandomListCopy()
+    before = createRandomArray()
     after = new QuickSortNotInPlace(before, greaterThan).partition(0).sort()
   })
 

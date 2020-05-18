@@ -1,22 +1,21 @@
 import { MergeSort, mergeSort, mergeSortBottomUp } from './index'
-import { isSorted, createRandomListCopy, greaterThan } from 'sorts/shared/utils'
+import { createRandomArray, greaterThan } from 'shared/utils'
+import { isSorted } from 'sorts/shared/utils'
 
 describe('Merge sort', () => {
   it('Should be sorted by MergeSort class', () => {
-    const list = createRandomListCopy()
+    const list = createRandomArray()
     new MergeSort(list, greaterThan) // 在 greaterThan 时交换，故结果为升序
     expect(isSorted(list)).toBeTruthy()
   })
 
   it('Should be sorted by mergeSort function', () => {
-    expect(
-      isSorted(mergeSort(createRandomListCopy(), greaterThan))
-    ).toBeTruthy()
+    expect(isSorted(mergeSort(createRandomArray(), greaterThan))).toBeTruthy()
   })
 
   it('Should be sorted by mergeSortBottomUp function', () => {
     expect(
-      isSorted(mergeSortBottomUp(createRandomListCopy(), greaterThan))
+      isSorted(mergeSortBottomUp(createRandomArray(), greaterThan))
     ).toBeTruthy()
   })
 })
