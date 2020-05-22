@@ -6,7 +6,7 @@
   </a>
 </p>
 
-This repository is used to record usual algorithms implemented by JavaScript, TypeScript.
+Record usual algorithms implemented by `JavaScript(TypeScript)`.
 
 <!-- TOC -->
 
@@ -16,7 +16,9 @@ This repository is used to record usual algorithms implemented by JavaScript, Ty
 - [Big O notation](#big-o-notation)
   - [Syntax](#syntax)
   - [Basic rules](#basic-rules)
-- [Further readings](#further-readings)
+  - [Further readings](#further-readings)
+- [Sorting algorithms](#sorting-algorithms)
+  - [Further readings](#further-readings)
 
 <!-- /TOC -->
 
@@ -50,7 +52,9 @@ yarn test
 npm t
 ```
 
-## [Big O notation](https://en.wikipedia.org/wiki/Big_O_notation)
+> NOTE: TypeScript compiling would be handled by internal tools.
+
+## Big O notation
 
 > In computer science, big O notation is used to classify algorithms according to how their running time or space requirements grow as the input size grows.
 
@@ -137,8 +141,17 @@ Like `O(n)`. `n` is just a variable name and it could be replace by any characte
 
    `doThis`'s complexity is `O(n squared)`.
 
-## Further readings
+### Further readings
 
+- [wiki - Big O notation](https://en.wikipedia.org/wiki/Big_O_notation)
 - [Youtube - Big O Notation](https://www.youtube.com/watch?v=v4cd1O4zkGw)
+
+## Sorting algorithms
+
+![sorting algorithms stability](./img/sort-characteristics.png)
+
+### Further readings
+
 - [Algorithms 4th - sort](https://algs4.cs.princeton.edu/20sorting/)
-- [toptal - sorting algorithms](https://www.toptal.com/developers/sorting-algorithms)
+- [toptal.com - sorting algorithms](https://www.toptal.com/developers/sorting-algorithms)
+- [algorithm-visualizer](https://algorithm-visualizer.org)
