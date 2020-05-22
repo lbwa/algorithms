@@ -12,14 +12,14 @@ export function createRandomArray(min = 10, max = 60) {
     .map(() => createRandomNumber(min, max))
 }
 
-export function lessThan(a: number, b: number) {
+export function lessThan<E>(a: E, b: E) {
   return a < b
 }
 
-export function greaterThan(a: number, b: number) {
+export function greaterThan<E>(a: E, b: E) {
   return a > b
 }
 
-export function exchange<E>(list: E[], a: number, b: number) {
+export function exchange<E, I extends number>(list: E[], a: I, b: I) {
   ;[list[a], list[b]] = [list[b], list[a]]
 }
