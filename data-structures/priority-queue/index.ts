@@ -31,7 +31,7 @@
  * 个子节点的位置分别为 2k 和 2k + 1
  */
 
-import { lessThan, exchange } from 'shared/utils'
+import { exchange } from 'shared/utils'
 
 /**
  * 在优先级队列中，高优先级的节点始终在低优先级节点之前。因为 `二叉堆`（简称 `堆`）结构
@@ -44,6 +44,8 @@ export class PriorityQueue<E extends number> {
    * 完全二叉树只用数组而不需要指针就可表示，将二叉树的几点
    */
   heap: [null, ...E[]] = [null]
+
+  constructor(private comparator: Comparator<E>) {}
 
   /**
    * 当前优先级队列是否为空队列
@@ -74,7 +76,7 @@ export class PriorityQueue<E extends number> {
     // 第 k 项的父节点为 k / 2（向下取整）
     while (
       index > 1 &&
-      lessThan(this.heap[index >> 1] as number, this.heap[index] as number)
+      this.comparator(this.heap[index >> 1] as E, this.heap[index] as E)
     ) {
       // 默认为最大堆，故上浮大的值
       exchange(this.heap, index >> 1, index)
@@ -90,22 +92,20 @@ export class PriorityQueue<E extends number> {
     while (2 * index <= this.size) {
       let childIndex = 2 * index
 
-      // 当右侧子节点大于左侧子节点时，选择右侧子节点，因为每次下沉操作总时对应了一个
-      // 大项子节点的上浮
+      // 以最大堆为例，当右侧子节点大于左侧子节点时，选择右侧子节点，因为每次下沉操作总
+      // 时对应了一个大项子节点的上浮
       if (
         childIndex < this.size &&
-        lessThan(
-          this.heap[childIndex] as number,
-          this.heap[childIndex + 1] as number
+        this.comparator(
+          this.heap[childIndex] as E,
+          this.heap[childIndex + 1] as E
         )
       ) {
         childIndex++
       }
 
-      // 当 index 节点不再小于子节点时，那么停止下沉操作
-      if (
-        !lessThan(this.heap[index] as number, this.heap[childIndex] as number)
-      )
+      // 以最大堆为例，当 index 节点不再小于子节点时，那么停止下沉操作
+      if (!this.comparator(this.heap[index] as E, this.heap[childIndex] as E))
         break
 
       // 下沉指定节点，并上浮对应的较大子节点

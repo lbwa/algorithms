@@ -1,5 +1,5 @@
 import { PriorityQueue } from './index'
-import { isDef } from 'shared/utils'
+import { isDef, lessThan } from 'shared/utils'
 
 /**
  * 当前堆是否是 `堆有序`，即所有父节点都大于其两个子节点。
@@ -22,7 +22,7 @@ function isHeapOrdered(heap: unknown[]) {
 describe('Priority Queue', () => {
   let queue: PriorityQueue<number>
   beforeEach(() => {
-    queue = new PriorityQueue()
+    queue = new PriorityQueue(lessThan)
   })
 
   it('Should create a priority queue', () => {
