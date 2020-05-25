@@ -45,6 +45,11 @@ export class PriorityQueue<E extends number> {
    */
   heap: [null, ...E[]] = [null]
 
+  /**
+   * @notice 在书写不定的堆优先队列（即可传参 comparator）时，有一种经验，为了更加符
+   * 合逻辑直觉，可将实现中的 this.comparator 替换为 greaterThan（或 lessThan）首先
+   * 按照最大堆（或最小堆）来实现
+   */
   constructor(private comparator: Comparator<E>) {}
 
   /**
