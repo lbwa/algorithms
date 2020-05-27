@@ -1,4 +1,4 @@
-import { QuickSort } from './index'
+import { QuickSort, QuickSortInPlace } from './index'
 import { quickSortNotInPlace, QuickSortNotInPlace } from './out-place'
 import { createRandomArray, greaterThan, lessThan } from 'shared/utils'
 import { isSorted } from '../shared/utils'
@@ -13,6 +13,20 @@ describe('Quick sort with in-place', () => {
   it('Should be sorted by QuickSort class', () => {
     const list = createRandomArray()
     new QuickSort(list, greaterThan)
+    expect(isSorted(list, (a: number, b: number) => a >= b)).toBeTruthy()
+  })
+})
+
+describe('In-place QuickSort', () => {
+  it('Should be sorted', () => {
+    const list = createRandomArray()
+    new QuickSortInPlace(list, lessThan)
+    expect(isSorted(list)).toBeTruthy()
+  })
+
+  it('Should be sorted', () => {
+    const list = createRandomArray()
+    new QuickSortInPlace(list, greaterThan)
     expect(isSorted(list, (a: number, b: number) => a >= b)).toBeTruthy()
   })
 })

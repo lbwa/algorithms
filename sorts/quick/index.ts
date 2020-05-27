@@ -25,6 +25,47 @@ export class QuickSort<E> {
   }
 
   /**
+   * 依据对撞指针实现快速排序中的切分策略
+   */
+  private partition(list: E[], low: number, high: number) {
+    const pivot = list[low]
+    const { comparator } = this
+    let i = low // left pointer
+    let j = high + 1 // right pointer
+    while (true) {
+      // 从第 low + 1 项开始，直到第一个不满足 comparator 的 i 项
+      while (comparator(list[++i], pivot)) if (i === high) break
+      // 从第 high 项开始，直到第一个不满足 comparator 的 j 项
+      while (comparator(pivot, list[--j])) if (j === low) break
+
+      // 左右指针碰撞，即完成整个 low ~ high 段的排序，退出迭代
+      if (i >= j) break
+
+      // 交换不满足上述条件的 i, j 项，使得迭代继续，最终实现指针碰撞时，碰撞处左边全
+      // 都大于或全都小于基准项，右侧反之。
+      exchange(list, i, j)
+    }
+
+    // 将基准项与指针碰撞处交换，因为在快速排序策略中，基准项始终不参与后续子列表的分治
+    // 排序
+    exchange(list, low, j)
+    return j
+  }
+}
+
+export class QuickSortInPlace<E> {
+  constructor(private list: E[], private comparator: Comparator<E>) {
+    this.sort(this.list, 0, this.list.length - 1)
+  }
+
+  private sort(list: E[], low: number, high: number) {
+    if (low >= high) return
+    const index = this.partition(list, low, high)
+    this.sort(list, low, index - 1)
+    this.sort(list, index + 1, high)
+  }
+
+  /**
    * 借助快慢指针实现分区内排序（以升序为例）
    * 1. 指定 a[high] 为切分元素，该元素最后被排序，不参与被递归的子数组排序
    * 2. 慢指针一定是小于切分元素，当快指针小于基准项时，交换快慢指针项。使得小项向前
