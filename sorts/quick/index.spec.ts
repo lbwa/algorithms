@@ -2,6 +2,7 @@ import { QuickSort, QuickSortInPlace } from './index'
 import { quickSortNotInPlace, QuickSortNotInPlace } from './out-place'
 import { createRandomArray, greaterThan, lessThan } from 'shared/utils'
 import { isSorted } from '../shared/utils'
+import { Quick3Ways } from './3-ways'
 
 describe('Quick sort with in-place', () => {
   it('Should be sorted by QuickSort class', () => {
@@ -94,5 +95,19 @@ describe('QuickSortNotInPlace with out-place', () => {
         (item, index) => index === after.length - 1 || item <= after[index + 1]
       )
     )
+  })
+})
+
+describe('Quick sort with 3 ways', () => {
+  it('Should be sorted', () => {
+    const list = createRandomArray()
+    new Quick3Ways(list, (a: number, b: number) => a - b)
+    expect(isSorted(list)).toBeTruthy()
+  })
+
+  it('Should be sorted', () => {
+    const list = createRandomArray()
+    new Quick3Ways(list, (a: number, b: number) => b - a)
+    expect(isSorted(list, (a: number, b: number) => a >= b)).toBeTruthy()
   })
 })
