@@ -1,4 +1,5 @@
-import { quickSortNotInPlace, QuickSortNotInPlace, QuickSort } from './index'
+import { QuickSort } from './index'
+import { quickSortNotInPlace, QuickSortNotInPlace } from './out-place'
 import { createRandomArray, greaterThan, lessThan } from 'shared/utils'
 import { isSorted } from '../shared/utils'
 
@@ -16,7 +17,7 @@ describe('Quick sort with in-place', () => {
   })
 })
 
-describe('Quick sort without in-place', () => {
+describe('Quick sort with out-place', () => {
   let before: number[]
   let after: number[]
 
@@ -47,7 +48,7 @@ describe('Quick sort without in-place', () => {
   })
 })
 
-describe('QuickSortNotInPlace without in-place', () => {
+describe('QuickSortNotInPlace with out-place', () => {
   let before: number[]
   let after: number[]
 
