@@ -1,6 +1,6 @@
 import { SymbolTable } from 'data-structures/symbol-table'
 
-class LinkedListNode<K, V> {
+export class LinkedListNode<K, V> {
   constructor(
     public key: K,
     public value: V | null,
@@ -13,7 +13,7 @@ class LinkedListNode<K, V> {
  * @see https://algs4.cs.princeton.edu/31elementary/index.php#3.1
  */
 export class SequentialSearch<K, V> extends SymbolTable<K, V> {
-  constructor(private head: LinkedListNode<K, V>) {
+  constructor(public head: LinkedListNode<K, V>) {
     super()
   }
 
