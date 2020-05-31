@@ -1,5 +1,5 @@
 import { SymbolTable } from '../symbol-table'
-import { isNull } from 'shared/utils'
+import { isNull, isDef } from 'shared/utils'
 
 export class TreeNode<K, V> {
   public left: TreeNode<K, V> | null = null
@@ -20,8 +20,8 @@ export class TreeNode<K, V> {
  * 1. 树由节点组成，节点包含的链接可未 null 或指向其他节点
  * 2. 每个节点至多只有一个父节点。且只有左右两个子链接（左右子节点，左右子二叉树）
  * 3. 左子节点始终为大于当前节点的节点树组成，右节点反之。（与二叉堆（优先对立）的显著
+ * 区别，二叉堆不限制左右子节点的大小，且二叉堆中根节点为极值点）
  * 4. 键名始终具有唯一性，否则被新值覆盖
- * 区别，二叉堆不限制左右子节点的大小）
  * @see https://algs4.cs.princeton.edu/32bst/
  */
 export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
@@ -38,6 +38,29 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
 
   get isEmpty() {
     return this.size === 0
+  }
+
+  get minKey() {
+    if (isNull(this.root)) return null
+    /**
+     * 在本实现中，所有节点的顺序依照键的大小来实现，那么当节点的左子二叉树为空时，那
+     * 么节点本身即为最小键
+     */
+    let current: TreeNode<K, V> | null = this.root
+    while (isDef(current) && isDef(current.left)) {
+      current = current.left
+    }
+    return current.key
+  }
+
+  get maxKey() {
+    if (isNull(this.root)) return null
+
+    let current: TreeNode<K, V> | null = this.root
+    while (isDef(current) && isDef(current.right)) {
+      current = current.right
+    }
+    return current.key
   }
 
   private getNodeSize(node: TreeNode<K, V> | null) {

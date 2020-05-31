@@ -38,4 +38,18 @@ describe('Binary search tree', () => {
     expect(search.contains(1)).toBeTruthy()
     expect(search.get(1)).toBe(2)
   })
+
+  it('Should return a min key', () => {
+    const search = new BinarySearchTree(new TreeNode(0, 1, 1), compareTo)
+    search.put(1, 2)
+    search.put(-1, 0)
+    expect(search.minKey).toBe(-1)
+  })
+
+  it('Should return a max key', () => {
+    const search = new BinarySearchTree(new TreeNode(0, 1, 1), compareTo)
+    search.put(1, 2)
+    search.put(-1, 0)
+    expect(search.maxKey).toBe(1)
+  })
 })
