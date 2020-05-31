@@ -6,6 +6,10 @@ export function isDef<T>(val: T): val is NonNullable<T> {
   return val !== undefined && val !== null
 }
 
+export function isNull(val: unknown): val is null {
+  return val === null
+}
+
 export function createRandomArray(min = 10, max = 60) {
   return new Array(createRandomNumber(min, max))
     .fill(null)
@@ -18,6 +22,10 @@ export function lessThan<E>(a: E, b: E) {
 
 export function greaterThan<E>(a: E, b: E) {
   return a > b
+}
+
+export function compareTo<E extends number | bigint>(a: E, b: E) {
+  return a - b
 }
 
 export function exchange<E, I extends number>(list: E[], a: I, b: I) {
