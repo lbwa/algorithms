@@ -10,7 +10,7 @@ Record usual algorithms implemented by `JavaScript(TypeScript)`.
 
 <!-- TOC -->
 
-- [Installing](#installing)
+- [Install dependencies](#install-dependencies)
 - [Compiling](#compiling)
 - [Unit test](#unit-test)
 - [Big O notation](#big-o-notation)
@@ -22,7 +22,7 @@ Record usual algorithms implemented by `JavaScript(TypeScript)`.
 
 <!-- /TOC -->
 
-## Installing
+## Install dependencies
 
 ```bash
 # using yarn
@@ -50,6 +50,9 @@ yarn test
 
 # using npm
 npm t
+
+# Specific test
+npm t <TEST_DIRECTORY_NAME>
 ```
 
 > NOTE: TypeScript compiling would be handled by internal tools.
