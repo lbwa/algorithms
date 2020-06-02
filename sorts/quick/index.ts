@@ -28,6 +28,17 @@ export class QuickSort<E> {
    * 依据对撞指针实现快速排序中的切分策略
    */
   private partition(list: E[], low: number, high: number) {
+    /**
+     * 1. 使用随机项作为基准 pivot 项，不推荐使用两端项，因为当待排序列表接近于有序
+     * 时，将大大增加操作数（时间复杂度上升）
+     * 2. 一种随机方案是选取中间项作为基准项
+     * 3. low + ((high - low) >> 1) 取中间项的好处在于规避直接 low + high 时出现溢
+     * 出的场景
+     * 4. 将基准项移动到任意一端，以规避在迭代过程中的特殊处理
+     */
+    exchange(list, low, low + ((high - low) >> 1))
+
+    // 读取移动后的基准项
     const pivot = list[low]
     const { comparator } = this
     let i = low // left pointer
@@ -72,6 +83,17 @@ export class QuickSortInPlace<E> {
    * 3. 该切分方案的核心在于始终将小项靠前，并通过不断递归子数组实现小项排序
    */
   private partition(list: E[], low: number, high: number) {
+    /**
+     * 1. 使用随机项作为基准 pivot 项，不推荐使用两端项，因为当待排序列表接近于有序
+     * 时，将大大增加操作数（时间复杂度上升）
+     * 2. 一种随机方案是选取中间项作为基准项
+     * 3. low + ((high - low) >> 1) 取中间项的好处在于规避直接 low + high 时出现溢
+     * 出的场景
+     * 4. 将基准项移动到任意一端，以规避在迭代过程中的特殊处理
+     */
+    exchange(list, high, low + ((high - low) >> 1))
+
+    // 读取移动后的基准项
     const pivot = list[high]
     let i = low // i is slow pointer, j is fast pointer
     for (let j = low; j < high; j++) {
