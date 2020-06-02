@@ -52,4 +52,17 @@ describe('Binary search tree', () => {
     search.put(-1, 0)
     expect(search.maxKey).toBe(1)
   })
+
+  it('Should find a Kth key', () => {
+    const search = new BinarySearchTree(new TreeNode(0, 0, 1), compareTo)
+    search.put(1, 1)
+    search.put(2, 2)
+    search.put(3, 3)
+    // 找到第 K 大的节点
+    expect(search.select(0)).toEqual(new TreeNode(3, 3, 1))
+    expect(search.select(1)?.key).toBe(2)
+    expect(search.select(1)?.value).toBe(2)
+    expect(search.select(1)?.size).toBe(2)
+    expect(search.select(5)).toBeNull()
+  })
 })

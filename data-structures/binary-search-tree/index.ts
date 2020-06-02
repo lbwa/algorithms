@@ -40,6 +40,8 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
     return this.size === 0
   }
 
+  // 在二叉搜索树定义中，最右侧节点即为最小 key 节点（当以 value 排序时，即最小的
+  // value 节点）
   get minKey() {
     if (isNull(this.root)) return null
     /**
@@ -47,18 +49,20 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
      * 么节点本身即为最小键
      */
     let current: TreeNode<K, V> | null = this.root
-    while (isDef(current) && isDef(current.left)) {
-      current = current.left
+    while (isDef(current) && isDef(current.right)) {
+      current = current.right
     }
     return current.key
   }
 
+  // 在二叉搜索树中，最左侧节点记为最大 key 节点（当以 value 字段排序时，即为最大的
+  // value 节点）
   get maxKey() {
     if (isNull(this.root)) return null
 
     let current: TreeNode<K, V> | null = this.root
-    while (isDef(current) && isDef(current.right)) {
-      current = current.right
+    while (isDef(current) && isDef(current.left)) {
+      current = current.left
     }
     return current.key
   }
@@ -71,7 +75,7 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
   private getFromNode(node: TreeNode<K, V> | null, key: K): V | null {
     if (isNull(node)) return null
 
-    const compare = this.comparator(key, node.key)
+    const compare = this.comparator(node.key, key)
     if (compare < 0) {
       return this.getFromNode(node.left, key)
     } else if (compare > 0) {
@@ -88,18 +92,36 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
   ): TreeNode<K, V> {
     if (isNull(node)) return new TreeNode(key, value, 1) // 未命中，则新建该节点
 
-    const compare = this.comparator(key, node.key)
+    const compare = this.comparator(node.key, key)
     if (compare < 0) {
-      // 小于当前节点 key，那么递归更新左侧节点二叉树
+      // 大于当前节点 key，那么递归更新左侧节点二叉树
       node.left = this.putFromNode(node.left, key, value)
     } else if (compare > 0) {
-      // 大于当前节点 key，那么递归更新右侧节点二叉树
+      // 小于当前节点 key，那么递归更新右侧节点二叉树
       node.right = this.putFromNode(node.right, key, value)
     } else {
       // 命中，则更新该节点
       node.value = value
     }
     node.size = this.getNodeSize(node.left) + this.getNodeSize(node.right) + 1
+    return node
+  }
+
+  private selectFromNode(
+    node: TreeNode<K, V> | null,
+    order: number
+  ): TreeNode<K, V> | null {
+    if (isNull(node)) return null
+
+    const leftChildSize = this.getNodeSize(node.left)
+    // 比左侧子节点的 size 小，表示要找的第 order 大的节点在左侧子二叉树中，故递归查找
+    if (order < leftChildSize) return this.selectFromNode(node.left, order)
+    // 比左侧子节点的 size 大，表示要找的第 order 大的几点在右侧子二叉树中，故递归
+    // 查找第 order - leftChildSize - 1 大的节点即目标节点
+    // 其中减 1 表示减去当前节点自身大小，即 1
+    if (order > leftChildSize)
+      return this.selectFromNode(node.right, order - leftChildSize - 1)
+
     return node
   }
 
@@ -116,5 +138,12 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
    */
   put(key: K, value: V) {
     return this.putFromNode(this.root, key, value)
+  }
+
+  /**
+   * 选择第 K 大的键的节点
+   */
+  select(order: number) {
+    return this.selectFromNode(this.root, order)
   }
 }
