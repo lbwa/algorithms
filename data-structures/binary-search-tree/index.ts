@@ -19,7 +19,7 @@ export class TreeNode<K, V> {
  * 叉查找树结合了链表插入的灵活性和有序数组查找的高效性
  * 1. 树由节点组成，节点包含的链接可未 null 或指向其他节点
  * 2. 每个节点至多只有一个父节点。且只有左右两个子链接（左右子节点，左右子二叉树）
- * 3. 左子节点始终为大于当前节点的节点树组成，右节点反之。（与二叉堆（优先对立）的显著
+ * 3. 左子节点始终为小于当前节点的节点树组成，右节点反之。（与二叉堆（优先对立）的显著
  * 区别，二叉堆不限制左右子节点的大小，且二叉堆中根节点为极值点）
  * 4. 键名始终具有唯一性，否则被新值覆盖
  * @see https://algs4.cs.princeton.edu/32bst/
@@ -40,7 +40,7 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
     return this.size === 0
   }
 
-  // 在二叉搜索树定义中，最右侧节点即为最小 key 节点（当以 value 排序时，即最小的
+  // 在二叉搜索树定义中，最左侧节点即为最小 key 节点（当以 value 排序时，即最小的
   // value 节点）
   get minKey() {
     if (isNull(this.root)) return null
@@ -49,20 +49,20 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
      * 么节点本身即为最小键
      */
     let current: TreeNode<K, V> | null = this.root
-    while (isDef(current) && isDef(current.right)) {
-      current = current.right
+    while (isDef(current) && isDef(current.left)) {
+      current = current.left
     }
     return current.key
   }
 
-  // 在二叉搜索树中，最左侧节点记为最大 key 节点（当以 value 字段排序时，即为最大的
+  // 在二叉搜索树中，最右侧侧节点记为最大 key 节点（当以 value 字段排序时，即为最大的
   // value 节点）
   get maxKey() {
     if (isNull(this.root)) return null
 
     let current: TreeNode<K, V> | null = this.root
-    while (isDef(current) && isDef(current.left)) {
-      current = current.left
+    while (isDef(current) && isDef(current.right)) {
+      current = current.right
     }
     return current.key
   }
@@ -76,9 +76,9 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
     if (isNull(node)) return null
 
     const compare = this.comparator(node.key, key)
-    if (compare < 0) {
+    if (compare > 0) {
       return this.getFromNode(node.left, key)
-    } else if (compare > 0) {
+    } else if (compare < 0) {
       return this.getFromNode(node.right, key)
     } else {
       return node.value
@@ -93,11 +93,11 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
     if (isNull(node)) return new TreeNode(key, value, 1) // 未命中，则新建该节点
 
     const compare = this.comparator(node.key, key)
-    if (compare < 0) {
-      // 大于当前节点 key，那么递归更新左侧节点二叉树
+    if (compare > 0) {
+      // 当前节点 key 大于指定 key，那么目标位置在较小值所在的左侧子树中
       node.left = this.putFromNode(node.left, key, value)
-    } else if (compare > 0) {
-      // 小于当前节点 key，那么递归更新右侧节点二叉树
+    } else if (compare < 0) {
+      // 当前节点 key 小于指定 key，那么目标位置在较大值所在右侧子树中
       node.right = this.putFromNode(node.right, key, value)
     } else {
       // 命中，则更新该节点
@@ -113,14 +113,14 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
   ): TreeNode<K, V> | null {
     if (isNull(node)) return null
 
-    const leftChildSize = this.getNodeSize(node.left)
-    // 比左侧子节点的 size 小，表示要找的第 order 大的节点在左侧子二叉树中，故递归查找
-    if (order < leftChildSize) return this.selectFromNode(node.left, order)
-    // 比左侧子节点的 size 大，表示要找的第 order 大的几点在右侧子二叉树中，故递归
-    // 查找第 order - leftChildSize - 1 大的节点即目标节点
+    const leftChildrenSize = this.getNodeSize(node.left)
+    // 比左侧子节点的 size 小，表示要找的第 k 小的节点在左侧子二叉树中，故递归查找
+    if (order < leftChildrenSize) return this.selectFromNode(node.left, order)
+    // 比左侧子节点的 size 大，表示要找的第 k 小的几点在右侧子二叉树中，故递归
+    // 查找第 order - leftChildrenSize - 1 小的节点即目标节点
     // 其中减 1 表示减去当前节点自身大小，即 1
-    if (order > leftChildSize)
-      return this.selectFromNode(node.right, order - leftChildSize - 1)
+    if (order > leftChildrenSize)
+      return this.selectFromNode(node.right, order - leftChildrenSize - 1)
 
     return node
   }
@@ -141,7 +141,8 @@ export class BinarySearchTree<K, V> extends SymbolTable<K, V> {
   }
 
   /**
-   * 选择第 K 大的键的节点
+   * 选择第 K 小的键的节点
+   * @further 第 k 大同理，且始于右子树而非左子树
    */
   select(order: number) {
     return this.selectFromNode(this.root, order)
