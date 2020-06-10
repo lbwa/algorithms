@@ -2,10 +2,13 @@ import { SymbolTable } from '../symbol-table'
 import { isNull, isDef } from 'shared/utils'
 
 export class TreeNode<K, V> {
-  public left: TreeNode<K, V> | null = null
-  public right: TreeNode<K, V> | null = null
-
-  constructor(public key: K, public value: V, public size: number) {}
+  constructor(
+    public key: K,
+    public value: V,
+    public size: number,
+    public left: TreeNode<K, V> | null = null,
+    public right: TreeNode<K, V> | null = null
+  ) {}
 }
 
 /**

@@ -1,5 +1,6 @@
 import { BinarySearchTree, TreeNode } from './index'
 import { compareTo } from 'shared/utils'
+import { isValidBinarySearchTree } from './validate'
 
 describe('Binary search tree', () => {
   it('Should init a BinarySearchTree instance', () => {
@@ -67,5 +68,37 @@ describe('Binary search tree', () => {
     expect(search.select(1)?.size).toBe(3)
     expect(search.select(3)).toEqual(new TreeNode(3, 3, 1))
     expect(search.select(5)).toBeNull()
+  })
+})
+
+describe('validate binary search tree', () => {
+  it('Should return true', () => {
+    expect(isValidBinarySearchTree(null)).toBeTruthy()
+    const peek = new TreeNode(0, 0, 1)
+    const tree = new BinarySearchTree(peek, compareTo)
+    tree.put(1, 1)
+    tree.put(2, 2)
+    tree.put(3, 3)
+
+    expect(isValidBinarySearchTree(peek)).toBeTruthy()
+  })
+
+  it('Should return false', () => {
+    expect(
+      isValidBinarySearchTree(
+        new TreeNode(1, 1, 2, null, new TreeNode(1, 1, 1))
+      )
+    ).toBeFalsy()
+
+    expect(
+      isValidBinarySearchTree(
+        new TreeNode(
+          1,
+          1,
+          4,
+          new TreeNode(4, 4, 3, new TreeNode(3, 3, 1), new TreeNode(6, 6, 1))
+        )
+      )
+    ).toBeFalsy()
   })
 })
