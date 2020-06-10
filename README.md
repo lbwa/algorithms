@@ -18,13 +18,7 @@ Record usual algorithms implemented by `JavaScript(TypeScript)`.
   - [Basic rules](#basic-rules)
   - [Further readings](#further-readings)
 - [Sorting algorithms](#sorting-algorithms)
-- [Tree traversal](#tree-traversal)
-  - [Depth-first search of tree](#depth-first-search-of-tree)
-    - [pre-order](#pre-order)
-    - [in-order](#in-order)
-    - [post-order](#post-order)
-  - [Breadth-first search of tree](#breadth-first-search-of-tree)
-  - [References](#references)
+- [Binary tree traversal](#binary-tree-traversal)
 - [Further readings](#further-readings)
 
 <!-- /TOC -->
@@ -160,43 +154,9 @@ Like `O(n)`. `n` is just a variable name and it could be replace by any characte
 
 ![sorting algorithms stability](./img/sort-characteristics.png)
 
-## Tree traversal
+## Binary tree traversal
 
-以二叉树为例，常规树的遍历分为：
-
-1. 深度优先搜索
-
-1. 广度优先搜索
-
-### Depth-first search of tree
-
-以根节点的相对于子树的访问顺序可将树的深度遍历分为以下三种：
-
-1. 前序遍历，根节点首先遍历
-
-1. 中序遍历，根节点在左右子树顺序之间遍历
-
-1. 后序遍历，根节点在递归遍历完左右子树后遍历
-
-#### pre-order
-
-前序遍历 `NLR`，首先访问根节点，后递归访问左右子树
-
-#### in-order
-
-中序遍历 `LNR`，首先递归访问左子树，后访问根节点，最后递归访问右子树
-
-#### post-order
-
-后序遍历 `LRN`，首先递归访问左子树，后访问右子树，最后访问根节点
-
-### Breadth-first search of tree
-
-广度优先搜索，即按层次遍历，始终尽可能的先访问距离根节点更近的节点，而后不断深入层次遍历远端节点。
-
-### References
-
-- [wiki - tree traversal](https://en.wikipedia.org/wiki/Tree_traversal)
+- [See](traversal)
 
 ## Further readings
 
