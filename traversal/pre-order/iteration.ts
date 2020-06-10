@@ -17,6 +17,10 @@ export function preOrderTraversal<V>(node: BinaryTreeNode<V> | null) {
 
   while (stack.length > 0) {
     const current = stack.pop()!
+    /**
+     * @key 与 traversal/post-order 中的后序遍历结构相似，不同之处在于此，始终将
+     * 当前项插入到结果队尾，那么出栈的顺序即是前序遍历顺序
+     */
     answer.push(current.value)
 
     /**
