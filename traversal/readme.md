@@ -147,7 +147,36 @@ function traversalBoilerplate(node: BinaryTreeNode | null) {
 
 ## Breadth-first search of tree
 
-广度优先搜索，即按层次遍历，始终尽可能的先访问距离根节点更近的节点，而后不断深入层次遍历远端节点。
+广度优先搜索，即按层次遍历（`level-order traversal`），始终尽可能的先访问距离根节点更近的节点，而后不断深入层次遍历远端节点。
+
+```
+队列 queue
+结果矩阵 answer
+
+如果当前根节点为 null，直接返回空的 answer 矩阵
+
+push 节点到队列中
+
+while (队列 queue 不为空时) {
+  预先 push 空数组至 answer 中作为当前层的结果数组
+
+  固定 levelSize 为当前 queue 的长度
+  （因为后续 for 循环中会不断加入新的节点到队列中）
+
+  （与前中后序遍历的显著不同在于，层次遍历每次迭代 Sn 层的 n 个节点，而不是 1 个节点）
+  for [0, levelSize)
+    队列出队首项，作为当前遍历的节点 current
+    answer[answer.length - 1] push 当前节点 current 的值
+
+    如果当前节点存在 left 节点，那么 left 节点入队
+
+    right 节点同理
+
+  (当前 while 循环结束时，queue 剩余节点为下一层的所有节点)
+}
+
+返回结果矩阵 answer
+```
 
 ## References
 
