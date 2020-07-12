@@ -1,9 +1,9 @@
-package sorts
+package quick
 
 import utils "algorithms/shared"
 
-// QuickSort transitional function for array/slice in-place sorting
-func QuickSort(list *[]int) {
+// Sort transitional function for array/slice in-place sorting
+func Sort(list *[]int) {
 	sort(list, 0, len(*list)-1)
 }
 
@@ -30,29 +30,30 @@ func partition(list *[]int, low, high int) int {
 	return j
 }
 
-// Quick sort struct for array/slice in-place sorting
-type Quick struct {
-	ptr *[]int
+// Sorting struct for array/slice in-place sorting
+type Sorting struct {
+	Raw *[]int
 }
 
-func (q Quick) sort(low, high int) {
+// Sort method is part of Sorting struct
+func (q Sorting) Sort(low, high int) {
 	if low >= high {
 		return
 	}
 	index := q.partition(low, high)
-	q.sort(low, index-1)
-	q.sort(index+1, high)
+	q.Sort(low, index-1)
+	q.Sort(index+1, high)
 }
 
-func (q Quick) partition(low, high int) int {
-	utils.Swap(q.ptr, high, low+(high-low)/2)
-	pivot, j := (*q.ptr)[high], low
+func (q Sorting) partition(low, high int) int {
+	utils.Swap(q.Raw, high, low+(high-low)/2)
+	pivot, j := (*q.Raw)[high], low
 	for i := low; i < high; i++ {
-		if (*q.ptr)[i] < pivot {
-			utils.Swap(q.ptr, i, j)
+		if (*q.Raw)[i] < pivot {
+			utils.Swap(q.Raw, i, j)
 			j++
 		}
 	}
-	utils.Swap(q.ptr, j, high)
+	utils.Swap(q.Raw, j, high)
 	return j
 }
