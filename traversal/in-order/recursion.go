@@ -14,6 +14,6 @@ func traversal(root *structures.BinaryTreeNode, answer *[]int) {
 		return
 	}
 	traversal(root.Left, answer)
-	*answer = append(*answer, root.Val)
+	*answer = append(*answer, root.Val.(int))
 	traversal(root.Right, answer)
 }

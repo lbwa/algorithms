@@ -22,7 +22,7 @@ func IterativeInOrder(root *structures.BinaryTreeNode) []int {
 		latestIndex := len(stack) - 1
 		current = stack[latestIndex]
 		stack = stack[:latestIndex]
-		answer = append(answer, current.Val)
+		answer = append(answer, current.Val.(int))
 		current = current.Right
 	}
 
