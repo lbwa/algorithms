@@ -1,11 +1,11 @@
-package sorts
+package selection
 
 import (
 	utils "algorithms/shared"
 )
 
-// Selection sort
-func Selection(arr *[]int) []int {
+// Sort for in-place sorting
+func Sort(arr *[]int) []int {
 	for i := 0; i < len(*arr); i++ {
 		min := i
 		for j := i; j < len(*arr); j++ {
