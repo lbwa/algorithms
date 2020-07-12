@@ -2,6 +2,7 @@ package sorts
 
 import (
 	"algorithms/sorts/bubble"
+	"algorithms/sorts/insertion"
 	"algorithms/sorts/quick"
 	"algorithms/sorts/selection"
 	"testing"
@@ -35,5 +36,11 @@ func TestQuickStruct(t *testing.T) {
 func TestSelection(t *testing.T) {
 	arr := []int{9, 5, 4, 6, 5, 8, 9, 7, 10, 2, 3, 1}
 	selection.Sort(&arr)
+	expect(t, &arr)
+}
+
+func TestInsertion(t *testing.T) {
+	arr := []int{9, 5, 4, 6, 5, 8, 9, 7, 10, 2, 3, 1}
+	insertion.Sort(&arr)
 	expect(t, &arr)
 }
