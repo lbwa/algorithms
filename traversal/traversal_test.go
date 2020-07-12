@@ -10,6 +10,7 @@ import (
 	inorder "algorithms/traversal/in-order"
 	levelorder "algorithms/traversal/level-order"
 	postorder "algorithms/traversal/post-order"
+	preorder "algorithms/traversal/pre-order"
 	"reflect"
 	"testing"
 )
@@ -72,4 +73,14 @@ func TestIterativePostOrder(t *testing.T) {
 func TestRecursivePostOrder(t *testing.T) {
 	tree := createBinaryTree()
 	expect(t, postorder.Recursive(&tree), []int{2, 3, 1, 5, 6, 4, 0})
+}
+
+func TestIterativePreOrder(t *testing.T) {
+	tree := createBinaryTree()
+	expect(t, preorder.Iterative(&tree), []int{0, 1, 2, 3, 4, 5, 6})
+}
+
+func TestRecursivePreOrder(t *testing.T) {
+	tree := createBinaryTree()
+	expect(t, preorder.Recursive(&tree), []int{0, 1, 2, 3, 4, 5, 6})
 }
