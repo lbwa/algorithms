@@ -9,7 +9,7 @@ import (
 	binarytree "algorithms/data-structures/binary-tree"
 	inorder "algorithms/traversal/in-order"
 	levelorder "algorithms/traversal/level-order"
-	"fmt"
+	postorder "algorithms/traversal/post-order"
 	"reflect"
 	"testing"
 )
@@ -61,6 +61,15 @@ func TestIterativeLevelOrder(t *testing.T) {
 		[]int{1, 4},
 		[]int{2, 3, 5, 6},
 	}
-	fmt.Println(levelorder.Iterative(&tree))
 	expect(t, levelorder.Iterative(&tree), want)
+}
+
+func TestIterativePostOrder(t *testing.T) {
+	tree := createBinaryTree()
+	expect(t, postorder.Iterative(&tree), []int{2, 3, 1, 5, 6, 4, 0})
+}
+
+func TestRecursivePostOrder(t *testing.T) {
+	tree := createBinaryTree()
+	expect(t, postorder.Recursive(&tree), []int{2, 3, 1, 5, 6, 4, 0})
 }
