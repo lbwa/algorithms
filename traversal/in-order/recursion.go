@@ -1,15 +1,15 @@
-package traversal
+package inorder
 
-import structures "algorithms/data-structures/binary-tree"
+import binarytree "algorithms/data-structures/binary-tree"
 
-// RecursiveInOrder for binary tree in-order traversal
-func RecursiveInOrder(root *structures.BinaryTreeNode) []int {
+// Recursive for binary tree in-order traversal
+func Recursive(root *binarytree.Node) []int {
 	answer := []int{}
 	traversal(root, &answer)
 	return answer
 }
 
-func traversal(root *structures.BinaryTreeNode, answer *[]int) {
+func traversal(root *binarytree.Node, answer *[]int) {
 	if root == nil {
 		return
 	}

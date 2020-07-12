@@ -1,18 +1,16 @@
-package traversal
+package inorder
 
-import (
-	structures "algorithms/data-structures/binary-tree"
-)
+import binarytree "algorithms/data-structures/binary-tree"
 
-// IterativeInOrder for binary tree in-order traversal
-func IterativeInOrder(root *structures.BinaryTreeNode) []int {
+// Iterative for binary tree in-order traversal
+func Iterative(root *binarytree.Node) []int {
 	answer := []int{}
 
 	if root == nil {
 		return answer
 	}
 
-	stack := []*structures.BinaryTreeNode{}
+	stack := []*binarytree.Node{}
 	current := root
 	for current != nil || len(stack) > 0 {
 		for current != nil {
