@@ -6,7 +6,7 @@
   </a>
 </p>
 
-Record usual algorithms implemented by `JavaScript(TypeScript)`.
+Record usual algorithms implemented by `JavaScript(TypeScript)` or `Golang`.
 
 <!-- TOC -->
 
@@ -17,6 +17,7 @@ Record usual algorithms implemented by `JavaScript(TypeScript)`.
   - [Syntax](#syntax)
   - [Basic rules](#basic-rules)
   - [Further readings](#further-readings)
+- [Master theorem](#master-theorem)
 - [Sorting algorithms](#sorting-algorithms)
 - [Binary tree traversal](#binary-tree-traversal)
 - [Further readings](#further-readings)
@@ -25,38 +26,52 @@ Record usual algorithms implemented by `JavaScript(TypeScript)`.
 
 ## Install dependencies
 
-```bash
-# using yarn
-yarn
+- TypeScript
 
-# using npm
-npm i
-```
+  ```bash
+  # using yarn
+  yarn
+
+  # using npm
+  npm i
+  ```
 
 ## Compiling
 
-```bash
-# using yarn
-yarn ts
+- TypeScript
 
-# using npm
-npm run ts
-```
+  ```bash
+  # using yarn
+  yarn ts
+
+  # using npm
+  npm run ts
+  ```
 
 ## Unit test
 
-```bash
-# using yarn
-yarn test
+- TypeScript
 
-# using npm
-npm t
+  ```bash
+  # using yarn
+  yarn test
 
-# Specific test
-npm t <TEST_DIRECTORY_NAME>
-```
+  # using npm
+  npm t
 
-> NOTE: TypeScript compiling would be handled by internal tools.
+  # Specific test
+  npm t <TEST_DIRECTORY_NAME>
+  ```
+
+  > NOTE: TypeScript compiling would be handled by internal tools.
+
+- Golang
+
+  ```bash
+  $ go test ./<SPECIFIC_FOLDER>
+  # eg, go test ./traversal
+  #     go test ./sorts
+  ```
 
 ## Big O notation
 
@@ -150,13 +165,21 @@ Like `O(n)`. `n` is just a variable name and it could be replace by any characte
 - [wiki - Big O notation](https://en.wikipedia.org/wiki/Big_O_notation)
 - [Youtube - Big O Notation](https://www.youtube.com/watch?v=v4cd1O4zkGw)
 
+## Master theorem
+
+> 即主定理。
+
+[wiki-master-theorem]: https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)
+
+See [wiki][wiki-master-theorem]
+
 ## Sorting algorithms
 
 ![sorting algorithms stability](./img/sort-characteristics.png)
 
 ## Binary tree traversal
 
-- [See](traversal)
+See [`traversal` folder](traversal).
 
 ## Further readings
 
