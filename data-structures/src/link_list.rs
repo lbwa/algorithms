@@ -53,7 +53,7 @@ mod tests {
   }
 
   #[test]
-  fn should_work() {
+  fn test_link_list() {
     let mut list = LinkList::new();
     for v in 1..5 {
       list.append(v);
