@@ -1,5 +1,3 @@
-import { TreeNode } from 'data-structures/binary-search-tree'
-
 type TrieNode = { isWord: boolean } & Map<string, TrieNode>
 
 /**

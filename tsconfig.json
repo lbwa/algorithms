@@ -1,15 +1,9 @@
 {
+  "extends": "@lbwa/tsconfig",
   "compilerOptions": {
     "outDir": "dist",
-    "noImplicitAny": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "target": "esnext",
-    "declaration": true,
-    "esModuleInterop": true,
-    "lib": ["es2015", "dom"],
-    "strict": true,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "noUncheckedIndexedAccess": false
   },
   "include": [
     "data-structures/**/*",
@@ -17,6 +11,5 @@
     "sorts/**/*",
     "traversal/**/*",
     "*.d.ts"
-  ],
-  "exclude": ["node_modules"]
+  ]
 }

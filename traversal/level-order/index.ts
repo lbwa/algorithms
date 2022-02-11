@@ -19,7 +19,7 @@ export function levelOrderTraversal<V>(node: BinaryTreeNode<V> | null) {
     // 与前中后序遍历不同的是，层次遍历每次取第 Sn 层中的 n 个节点进行遍历
     for (let i = 0; i < levelSize; i++) {
       const current = queue.shift()!
-      answer[answer.length - 1].push(current.value)
+      answer[answer.length - 1]?.push(current.value)
 
       // 若存在第 Sn + 1 层的节点，那么按照左右子节点的顺序加入到 queue 队列中，用于
       // 在第 Sn + 1 层遍历
