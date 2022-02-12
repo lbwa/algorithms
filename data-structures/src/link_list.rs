@@ -11,6 +11,7 @@ impl ListNode {
   }
 }
 
+#[derive(Default)]
 pub struct LinkList(Option<Box<ListNode>>);
 
 impl LinkList {

@@ -1,6 +1,8 @@
 <h1 align="center">Algorithms</h1>
 
-Basic algorithms implementations, written by `JavaScript(TypeScript)` and `Golang`.
+[![test cases](https://github.com/lbwa/algorithms/actions/workflows/rust.yml/badge.svg)](https://github.com/lbwa/algorithms/actions/workflows/rust.yml)
+
+Basic algorithms implementations, written by `TypeScript`, `Golang`, `Rust`.
 
 ## Test
 
@@ -17,9 +19,15 @@ Basic algorithms implementations, written by `JavaScript(TypeScript)` and `Golan
 - Golang
 
   ```bash
-  $ go test ./<SPECIFIC_FOLDER>
+  go test ./<SPECIFIC_FOLDER>
   # eg, go test ./traversal
   #     go test ./sorts
+  ```
+
+- Rust
+
+  ```bash
+  cargo t
   ```
 
 ## Further readings

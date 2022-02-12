@@ -22,7 +22,7 @@ impl UndirectedGraph {
 
   pub fn add_edge(&mut self, v: VectorData, w: VectorData) {
     // 因为是无向图，故将两个顶点互相加入到对方的链表中，保证每个链表中始终都维护了当下顶点的所有相邻顶点
-    for (a, b) in vec![(v, w), (w, v)] {
+    for &(a, b) in &[(v, w), (w, v)] {
       if self.adjacency_list.get(a).is_none() {
         self.adjacency_list.resize(a + 1, Default::default());
         self.vectors += 1;
@@ -50,13 +50,13 @@ mod tests {
   #[test]
   fn test_undirected_graph() {
     let mut graph = UndirectedGraph::new();
-    for (a, b) in vec![(0, 1), (0, 2)] {
+    for &(a, b) in &[(0, 1), (0, 2)] {
       graph.add_edge(a, b);
     }
     assert_eq!(graph.vectors, 3);
     assert_eq!(graph.edges, 2);
 
-    for (a, b) in vec![(1, 2), (1, 3), (3, 4)] {
+    for &(a, b) in &[(1, 2), (1, 3), (3, 4)] {
       graph.add_edge(a, b);
     }
     assert_eq!(graph.vectors, 5);
@@ -70,7 +70,7 @@ mod tests {
     assert_eq!(graph.vectors, 7);
     assert_eq!(graph.edges, 7);
 
-    for (input, expect) in vec![(0, 3), (1, 3), (2, 2), (3, 3), (4, 1), (7, 1), (8, 1)] {
+    for &(input, expect) in &[(0, 3), (1, 3), (2, 2), (3, 3), (4, 1), (7, 1), (8, 1)] {
       assert_eq!(graph.degree(input), expect)
     }
   }
