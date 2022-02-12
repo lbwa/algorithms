@@ -4,15 +4,14 @@ use std::collections::LinkedList;
 ///
 /// - https://algs4.cs.princeton.edu/13stacks/
 /// - https://algs4.cs.princeton.edu/13stacks/Bag.java.html
-#[derive(Default)]
-pub struct Bag(Option<LinkedList<i32>>);
+pub struct Bag<Item>(Option<LinkedList<Item>>);
 
-impl Bag {
+impl<Item> Bag<Item> {
   pub fn new() -> Self {
-    Bag::default()
+    Bag(None)
   }
 
-  pub fn add(&mut self, val: i32) -> &Self {
+  pub fn add(&mut self, val: Item) -> &Self {
     let Bag(ref mut head) = self;
     if head.is_none() {
       *head = Some(LinkedList::from([val]));
