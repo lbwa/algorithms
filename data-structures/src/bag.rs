@@ -4,7 +4,7 @@ use std::collections::LinkedList;
 ///
 /// - https://algs4.cs.princeton.edu/13stacks/
 /// - https://algs4.cs.princeton.edu/13stacks/Bag.java.html
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct Bag<Item>(Option<LinkedList<Item>>);
 
 impl<Item> Bag<Item> {
