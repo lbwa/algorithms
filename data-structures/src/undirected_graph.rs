@@ -10,7 +10,7 @@ pub struct UndirectedGraph {
   /// 为了便于内聚 graph 的关键实现，做出以下简化处理：
   /// 1. 直接使用顶点作为索引，对应的索引值为该顶点的 **所有** 相邻顶点构成的链表；
   /// 2. 用例中邻接链表较短，故直接使用穷举遍历法实现边的检测；
-  adjacency_list: Vec<Vec<VectorData>>,
+  adjacency_list: Vec<Vec<VectorData>>, // TODO：使用支持 iterator 的 Bag 代替，即 Vec<Bag<VectorData>>
 }
 
 pub type VectorData = usize;
