@@ -17,7 +17,7 @@ impl<Item> Bag<Item> {
     if head.is_none() {
       *head = Some(LinkedList::from([val]));
     } else {
-      head.as_mut().unwrap().push_back(val);
+      head.as_mut().expect("Unavailable head node").push_back(val);
     }
     self
   }
@@ -31,7 +31,7 @@ impl<Item> Bag<Item> {
     let Bag(ref head) = self;
     if head.is_some() {
       let mut count = 0usize;
-      let head = head.as_ref().unwrap();
+      let head = head.as_ref().expect("Unavailable head node");
       for _ in head {
         count += 1;
       }

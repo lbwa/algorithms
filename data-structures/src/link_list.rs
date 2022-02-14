@@ -29,11 +29,20 @@ impl LinkList {
       return self;
     }
 
-    while current.as_ref().unwrap().next.is_some() {
-      current = &mut current.as_mut().unwrap().next;
+    while current
+      .as_ref()
+      .expect("Unavailable current node in while loop")
+      .next
+      .is_some()
+    {
+      current = &mut current
+        .as_mut()
+        .expect("Unavailable node in current.node")
+        .next;
     }
 
-    current.as_mut().unwrap().next = Some(Box::new(ListNode::new(val)));
+    current.as_mut().expect("Couldn't mutate current.next").next =
+      Some(Box::new(ListNode::new(val)));
 
     self
   }
