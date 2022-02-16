@@ -38,7 +38,9 @@ impl<Value> LinkedList<Value> {
     self.head.as_mut().map(|node| &mut node.val)
   }
 
-  // 返回迭代器，其中后续 Iterator trait 的实现也是针对 IntoInter 结构体，而非 LinkedList 结构体！！
+  /// 返回迭代器，其中后续 Iterator trait 的实现也是针对 IntoInter 结构体，而非 LinkedList 结构体！！
+  /// > 此处亦可直接实现 std::iter::IntoIterator trait，参考 https://doc.rust-lang.org/std/iter/trait.IntoIterator.html
+  #[allow(clippy::should_implement_trait)]
   pub fn into_iter(self) -> IntoIter<Value> {
     IntoIter(self)
   }
@@ -197,7 +199,9 @@ mod tests {
       }))
     );
 
-    linked_list.peek_mut().map(|val| *val = 10);
+    if let Some(val) = linked_list.peek_mut() {
+      *val = 10;
+    }
     assert_eq!(
       linked_list.pop_front(),
       Some(Box::new(ListNode {
