@@ -27,8 +27,17 @@ impl<Value> LinkedList<Value> {
   pub fn new() -> Self {
     Default::default()
   }
+
+  pub fn peek(&self) -> Option<&Value> {
+    self.head.as_ref().map(|node| &node.val)
+  }
+
+  pub fn peek_mut(&mut self) -> Option<&mut Value> {
+    self.head.as_mut().map(|node| &mut node.val)
+  }
 }
 
+// push_xx
 impl<Value> LinkedList<Value> {
   pub fn push_front(&mut self, val: Value) {
     self.head = Some(Box::new(ListNode {
@@ -64,6 +73,7 @@ impl<Value> LinkedList<Value> {
   }
 }
 
+/// pop_xx
 impl<Value> LinkedList<Value> {
   // pub fn pop_front(&mut self) -> Option<Box<ListNode<Value>>> {
   //   // Option.replace is equivalent to mem::replace, see https://doc.rust-lang.org/std/option/enum.Option.html#method.replace and
@@ -108,6 +118,8 @@ mod tests {
       linked_list.push_back(v);
     }
 
+    assert_eq!(linked_list.peek(), Some(&1));
+    assert_eq!(linked_list.peek_mut(), Some(&mut 1));
     assert_eq!(
       linked_list.head,
       Some(Box::new(ListNode {
@@ -123,6 +135,8 @@ mod tests {
     );
 
     linked_list.push_front(0);
+    assert_eq!(linked_list.peek(), Some(&0));
+    assert_eq!(linked_list.peek_mut(), Some(&mut 0));
     assert_eq!(
       linked_list.head,
       Some(Box::new(ListNode {
@@ -166,6 +180,15 @@ mod tests {
         val: -1,
         next: None
       }))
-    )
+    );
+
+    linked_list.peek_mut().map(|val| *val = 10);
+    assert_eq!(
+      linked_list.pop_front(),
+      Some(Box::new(ListNode {
+        val: 10,
+        next: None
+      }))
+    );
   }
 }
