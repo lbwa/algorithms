@@ -1,7 +1,8 @@
+type Link = Option<Box<ListNode>>;
 #[derive(PartialEq, Eq, Debug)]
 pub struct ListNode {
   pub val: i32,
-  pub next: Option<Box<ListNode>>,
+  pub next: Link,
 }
 
 impl ListNode {
@@ -12,21 +13,23 @@ impl ListNode {
 }
 
 #[derive(Default)]
-pub struct LinkList(Option<Box<ListNode>>);
+pub struct LinkList {
+  head: Link,
+}
 
 impl LinkList {
   pub fn new() -> Self {
-    Self(None)
+    Default::default()
   }
 
-  pub fn append(&mut self, val: i32) -> &mut Self {
-    let LinkList(ref mut head) = self;
+  pub fn push_back(&mut self, val: i32) {
+    let LinkList { head } = self;
 
     let mut current = head;
 
     if current.is_none() {
       *current = Some(Box::new(ListNode::new(val)));
-      return self;
+      return;
     }
 
     while current
@@ -43,8 +46,23 @@ impl LinkList {
 
     current.as_mut().expect("Couldn't mutate current.next").next =
       Some(Box::new(ListNode::new(val)));
+  }
 
-    self
+  pub fn pop_front(&mut self) -> Option<Box<ListNode>> {
+    // https://doc.rust-lang.org/std/option/enum.Option.html#method.replace
+    // https://doc.rust-lang.org/std/mem/fn.replace.html
+    // let mut deleted = std::mem::replace(&mut self.head, None);
+    // if deleted.is_some() {
+    //   self.head = deleted.as_mut()?.next.take();
+    //   deleted
+    // } else {
+    //   None
+    // }
+
+    let head = self.head.as_mut()?.next.take()?;
+    // Option.replace is equivalent to mem::replace, see https://doc.rust-lang.org/std/option/enum.Option.html#method.replace and
+    // https://doc.rust-lang.org/1.58.1/src/core/option.rs.html#1348
+    self.head.replace(head)
   }
 }
 
@@ -66,9 +84,11 @@ mod tests {
   fn test_link_list() {
     let mut list = LinkList::new();
     for v in 1..5 {
-      list.append(v);
+      list.push_back(v);
     }
-    let LinkList(head) = list;
-    assert_eq!(head, to_list(vec![1, 2, 3, 4]));
+    assert_eq!(list.head, to_list(vec![1, 2, 3, 4]));
+
+    let deleted = list.pop_front();
+    assert_eq!(deleted, Some(Box::new(ListNode { val: 1, next: None })))
   }
 }
