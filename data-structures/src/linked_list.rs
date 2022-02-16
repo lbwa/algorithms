@@ -13,17 +13,18 @@ impl ListNode {
 }
 
 #[derive(Default)]
-pub struct LinkList {
+/// [Impl in Rust std](https://doc.rust-lang.org/std/collections/struct.LinkedList.html)
+pub struct LinkedList {
   head: Link,
 }
 
-impl LinkList {
+impl LinkedList {
   pub fn new() -> Self {
     Default::default()
   }
 
   pub fn push_back(&mut self, val: i32) {
-    let LinkList { head } = self;
+    let LinkedList { head } = self;
 
     let mut current = head;
 
@@ -49,20 +50,17 @@ impl LinkList {
   }
 
   pub fn pop_front(&mut self) -> Option<Box<ListNode>> {
+    // Option.replace is equivalent to mem::replace, see https://doc.rust-lang.org/std/option/enum.Option.html#method.replace and
     // https://doc.rust-lang.org/std/option/enum.Option.html#method.replace
     // https://doc.rust-lang.org/std/mem/fn.replace.html
-    // let mut deleted = std::mem::replace(&mut self.head, None);
-    // if deleted.is_some() {
-    //   self.head = deleted.as_mut()?.next.take();
-    //   deleted
-    // } else {
-    //   None
-    // }
-
-    let head = self.head.as_mut()?.next.take()?;
-    // Option.replace is equivalent to mem::replace, see https://doc.rust-lang.org/std/option/enum.Option.html#method.replace and
     // https://doc.rust-lang.org/1.58.1/src/core/option.rs.html#1348
-    self.head.replace(head)
+    let mut deleted = std::mem::replace(&mut self.head, None);
+    if deleted.is_some() {
+      self.head = deleted.as_mut()?.next.take();
+      deleted
+    } else {
+      None
+    }
   }
 }
 
@@ -81,14 +79,29 @@ mod tests {
   }
 
   #[test]
-  fn test_link_list() {
-    let mut list = LinkList::new();
+  fn test_linked_list() {
+    let mut linked_list = LinkedList::new();
     for v in 1..5 {
-      list.push_back(v);
+      linked_list.push_back(v);
     }
-    assert_eq!(list.head, to_list(vec![1, 2, 3, 4]));
+    assert_eq!(linked_list.head, to_list(vec![1, 2, 3, 4]));
 
-    let deleted = list.pop_front();
-    assert_eq!(deleted, Some(Box::new(ListNode { val: 1, next: None })))
+    let deleted = linked_list.pop_front();
+    assert_eq!(deleted, Some(Box::new(ListNode { val: 1, next: None })));
+
+    for expect in [2, 3, 4] {
+      let d = linked_list.pop_front();
+      println!("{:?}", d);
+      assert_eq!(
+        d,
+        Some(Box::new(ListNode {
+          val: expect,
+          next: None
+        }))
+      )
+    }
+
+    assert_eq!(linked_list.head, None);
+    assert_eq!(linked_list.pop_front(), None)
   }
 }
