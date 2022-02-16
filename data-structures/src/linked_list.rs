@@ -17,6 +17,8 @@ pub struct LinkedList<Value> {
   head: Link<Value>,
 }
 
+pub struct IntoIter<Value>(LinkedList<Value>);
+
 impl<Value> Default for LinkedList<Value> {
   fn default() -> Self {
     LinkedList { head: None }
@@ -34,6 +36,11 @@ impl<Value> LinkedList<Value> {
 
   pub fn peek_mut(&mut self) -> Option<&mut Value> {
     self.head.as_mut().map(|node| &mut node.val)
+  }
+
+  // 返回迭代器，其中后续 Iterator trait 的实现也是针对 IntoInter 结构体，而非 LinkedList 结构体！！
+  pub fn into_iter(self) -> IntoIter<Value> {
+    IntoIter(self)
   }
 }
 
@@ -107,6 +114,14 @@ impl<Value> LinkedList<Value> {
   }
 }
 
+impl<Value> Iterator for IntoIter<Value> {
+  type Item = Box<ListNode<Value>>;
+  fn next(&mut self) -> Option<Self::Item> {
+    let IntoIter(linked_list) = self;
+    linked_list.pop_front()
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -159,7 +174,7 @@ mod tests {
       Some(Box::new(ListNode { val: 0, next: None }))
     );
 
-    for expect in [1, 2, 3, 4] {
+    for expect in 1..5 {
       let d = linked_list.pop_front();
       assert_eq!(
         d,
@@ -190,5 +205,15 @@ mod tests {
         next: None
       }))
     );
+
+    for input in 11..16 {
+      linked_list.push_back(input);
+    }
+
+    let mut iter = linked_list.into_iter();
+    for expect in 11..16 {
+      assert_eq!(iter.next().unwrap().val, expect);
+    }
+    assert_eq!(iter.next(), None)
   }
 }
