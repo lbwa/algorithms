@@ -1,4 +1,4 @@
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 export function postOrderTraversal<V>(node: BinaryTreeNode<V> | null) {
   const answer: V[] = []

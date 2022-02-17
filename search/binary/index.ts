@@ -1,4 +1,4 @@
-import { SymbolTable } from 'data-structures/symbol-table'
+import { SymbolTable } from 'data-structures/src/symbol-table'
 
 /**
  * 基于有序数组的二分查找

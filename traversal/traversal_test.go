@@ -6,7 +6,7 @@
 package traversal
 
 import (
-	binarytree "algorithms/data-structures/binary-tree"
+	binarytree "algorithms/data-structures/src/binary_tree"
 	inorder "algorithms/traversal/in-order"
 	levelorder "algorithms/traversal/level-order"
 	postorder "algorithms/traversal/post-order"

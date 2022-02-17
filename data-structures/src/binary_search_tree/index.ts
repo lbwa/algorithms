@@ -1,4 +1,4 @@
-import { SymbolTable } from '../symbol-table'
+import { SymbolTable } from 'data-structures/src/symbol-table'
 import { isNull, isDef } from 'shared/utils'
 
 export class TreeNode<K, V> {

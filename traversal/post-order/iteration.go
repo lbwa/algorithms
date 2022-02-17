@@ -1,6 +1,6 @@
 package postorder
 
-import binarytree "algorithms/data-structures/binary-tree"
+import binarytree "algorithms/data-structures/src/binary_tree"
 
 func Iterative(root *binarytree.Node) []int {
 	answer := []int{}

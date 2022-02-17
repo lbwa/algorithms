@@ -19,6 +19,10 @@ Basic algorithms implementations, written by `TypeScript`, `Golang`, `Rust`.
 - Golang
 
   ```bash
+  go test ./...
+  ```
+
+  ```bash
   go test ./<SPECIFIC_FOLDER>
   # eg, go test ./traversal
   #     go test ./sorts

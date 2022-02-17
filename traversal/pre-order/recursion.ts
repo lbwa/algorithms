@@ -1,4 +1,4 @@
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 /**
  * @leetcode https://leetcode-cn.com/problems/binary-tree-preorder-traversal/

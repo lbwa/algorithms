@@ -1,4 +1,4 @@
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 /**
  * @name 二叉树的前序遍历 pre-order traversal

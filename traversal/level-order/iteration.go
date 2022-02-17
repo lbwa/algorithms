@@ -1,6 +1,6 @@
 package levelorder
 
-import binarytree "algorithms/data-structures/binary-tree"
+import binarytree "algorithms/data-structures/src/binary_tree"
 
 // Iterative for binary tree level-order traversal
 func Iterative(root *binarytree.Node) [][]int {

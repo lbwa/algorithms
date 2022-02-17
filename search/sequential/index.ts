@@ -1,4 +1,4 @@
-import { SymbolTable } from 'data-structures/symbol-table'
+import { SymbolTable } from 'data-structures/src/symbol-table'
 
 export class LinkedListNode<K, V> {
   constructor(

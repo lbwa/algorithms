@@ -1,5 +1,5 @@
 import { levelOrderTraversal } from '.'
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 describe('Binary tree level-order traversal', () => {
   it('Should return a correct result list', () => {

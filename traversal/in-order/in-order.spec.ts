@@ -1,6 +1,6 @@
 import { inOrderTraversal as iterativeInOrderTraversal } from './iteration'
 import { inOrderTraversal as recursiveInOrderTraversal } from './recursion'
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 describe('In order traversal', () => {
   it('Should return a correct list with iterative traversal', () => {

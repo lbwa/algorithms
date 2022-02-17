@@ -1,4 +1,4 @@
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 /**
  * @时间复杂度 访问每个节点恰好一次，即 O(N)

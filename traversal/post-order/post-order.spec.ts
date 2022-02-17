@@ -1,6 +1,6 @@
 import { postOrderTraversal as recursivePostOrderTraversal } from './recursion'
 import { postOrderTraversal as iterativePostOrderTraversal } from './iteration'
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 describe('Post order traversal', () => {
   it('Should return a correct list with recursive traversal', () => {

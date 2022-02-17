@@ -1,4 +1,4 @@
-import { isDef } from '../../shared/utils'
+import { isDef } from 'shared/utils'
 
 type LinkedListNode<E> = {
   value: E

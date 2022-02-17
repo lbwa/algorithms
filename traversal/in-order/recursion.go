@@ -1,6 +1,6 @@
 package inorder
 
-import binarytree "algorithms/data-structures/binary-tree"
+import binarytree "algorithms/data-structures/src/binary_tree"
 
 // Recursive for binary tree in-order traversal
 func Recursive(root *binarytree.Node) []int {

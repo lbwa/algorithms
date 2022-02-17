@@ -1,6 +1,6 @@
 package preorder
 
-import binarytree "algorithms/data-structures/binary-tree"
+import binarytree "algorithms/data-structures/src/binary_tree"
 
 // Iterative for post-order traversal
 func Iterative(root *binarytree.Node) []int {

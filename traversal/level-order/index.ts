@@ -1,4 +1,4 @@
-import { BinaryTreeNode } from 'data-structures/binary-tree'
+import { BinaryTreeNode } from 'data-structures/src/binary_tree'
 
 export function levelOrderTraversal<V>(node: BinaryTreeNode<V> | null) {
   // queue 队列保存了二叉树的第 Sn 层的 n 个节点

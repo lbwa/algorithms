@@ -43,7 +43,7 @@ describe('Priority Queue based on max heap', () => {
   })
 
   it('Should insert multiple element.', () => {
-    ;[10, 12, 4, 2, 5, 3].forEach((el) => queue.insert(el))
+    ;[10, 12, 4, 2, 5, 3].forEach(el => queue.insert(el))
     expect(queue.size).toBe(6)
     expect(queue.hightest).toBe(12)
     // every node should be greater than its all child nodes.
@@ -53,7 +53,7 @@ describe('Priority Queue based on max heap', () => {
   it('Should delete root node', () => {
     expect(queue.size).toBe(0)
     expect(queue.deleteHightest()).toBeUndefined()
-    ;[5, 2, 4, 1, 7, 6, 3, 8].forEach((el) => queue.insert(el))
+    ;[5, 2, 4, 1, 7, 6, 3, 8].forEach(el => queue.insert(el))
     expect(isHeapOrdered(queue.heap, greaterThan)).toBeTruthy()
     expect(queue.deleteHightest()).toBe(8)
     expect(isHeapOrdered(queue.heap, greaterThan)).toBeTruthy()
@@ -83,7 +83,7 @@ describe('Priority queue based on min heap', () => {
   })
 
   it('Should insert multiple element.', () => {
-    ;[10, 12, 4, 2, 5, 3].forEach((el) => queue.insert(el))
+    ;[10, 12, 4, 2, 5, 3].forEach(el => queue.insert(el))
     expect(queue.size).toBe(6)
     expect(queue.hightest).toBe(2)
     // every node should be greater than its all child nodes.
@@ -93,7 +93,7 @@ describe('Priority queue based on min heap', () => {
   it('Should delete root node', () => {
     expect(queue.size).toBe(0)
     expect(queue.deleteHightest()).toBeUndefined()
-    ;[5, 2, 4, 1, 7, 6, 3, 8].forEach((el) => queue.insert(el))
+    ;[5, 2, 4, 1, 7, 6, 3, 8].forEach(el => queue.insert(el))
     expect(isHeapOrdered(queue.heap, lessThan)).toBeTruthy()
     expect(queue.deleteHightest()).toBe(1)
     expect(isHeapOrdered(queue.heap, lessThan)).toBeTruthy()
