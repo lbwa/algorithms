@@ -19,6 +19,10 @@ pub struct LinkedList<Value> {
 
 pub struct IntoIter<Value>(LinkedList<Value>);
 
+pub struct Iter<'node, Value> {
+  next: Option<&'node ListNode<Value>>,
+}
+
 impl<Value> Default for LinkedList<Value> {
   fn default() -> Self {
     LinkedList { head: None }
@@ -117,6 +121,12 @@ impl<Value> LinkedList<Value> {
   pub fn into_iter(self) -> IntoIter<Value> {
     IntoIter(self)
   }
+
+  pub fn iter(&self) -> Iter<Value> {
+    Iter {
+      next: self.head.as_deref(),
+    }
+  }
 }
 
 impl<Value> Iterator for IntoIter<Value> {
@@ -127,13 +137,25 @@ impl<Value> Iterator for IntoIter<Value> {
   }
 }
 
+impl<'node, Value> Iterator for Iter<'node, Value> {
+  type Item = &'node Value;
+
+  fn next(&mut self) -> Option<Self::Item> {
+    self.next.map(|node| {
+      self.next = node.next.as_deref();
+      &node.val
+    })
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
 
   #[test]
-  fn test_linked_list() {
+  fn test_push() {
     let mut linked_list = LinkedList::new();
+
     for v in 1..5 {
       linked_list.push_back(v);
     }
@@ -155,8 +177,6 @@ mod tests {
     );
 
     linked_list.push_front(0);
-    assert_eq!(linked_list.peek(), Some(&0));
-    assert_eq!(linked_list.peek_mut(), Some(&mut 0));
     assert_eq!(
       linked_list.head,
       Some(Box::new(ListNode {
@@ -173,6 +193,15 @@ mod tests {
         }))
       }))
     );
+  }
+
+  #[test]
+  fn test_pop() {
+    let mut linked_list = LinkedList::new();
+
+    for input in 0..5 {
+      linked_list.push_back(input);
+    }
 
     assert_eq!(
       linked_list.pop_front(),
@@ -192,15 +221,18 @@ mod tests {
 
     assert_eq!(linked_list.head, None);
     assert_eq!(linked_list.pop_front(), None);
+  }
 
-    linked_list.push_front(-1);
-    assert_eq!(
-      linked_list.head,
-      Some(Box::new(ListNode {
-        val: -1,
-        next: None
-      }))
-    );
+  #[test]
+  fn test_peek() {
+    let mut linked_list = LinkedList::new();
+
+    for input in 0..5 {
+      linked_list.push_back(input);
+    }
+
+    assert_eq!(linked_list.peek(), Some(&0));
+    assert_eq!(linked_list.peek_mut(), Some(&mut 0));
 
     if let Some(val) = linked_list.peek_mut() {
       *val = 10;
@@ -212,7 +244,11 @@ mod tests {
         next: None
       }))
     );
+  }
 
+  #[test]
+  fn test_into_iter() {
+    let mut linked_list = LinkedList::new();
     for input in 11..16 {
       linked_list.push_back(input);
     }
@@ -222,5 +258,22 @@ mod tests {
       assert_eq!(iter.next().unwrap().val, expect);
     }
     assert_eq!(iter.next(), None)
+  }
+
+  #[test]
+  fn test_iter() {
+    let mut linked_list = LinkedList::new();
+    for input in 0..4 {
+      linked_list.push_back(input);
+    }
+
+    let mut iter = linked_list.iter();
+    for expect in 0..4 {
+      assert_eq!(iter.next(), Some(&expect));
+    }
+
+    for _ in 0..2 {
+      assert_eq!(iter.next(), None)
+    }
   }
 }
