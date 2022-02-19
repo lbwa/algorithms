@@ -1,25 +1,34 @@
-use std::collections::LinkedList;
+use std::collections::{linked_list, LinkedList};
 
 /// A.K.A. [multiset or bag](https://en.wikipedia.org/wiki/Multiset)，与 Set 最大不同之处在于允许重复值出现，且不支持删除操作
 ///
 /// - https://algs4.cs.princeton.edu/13stacks/
 /// - https://algs4.cs.princeton.edu/13stacks/Bag.java.html
 #[derive(Debug, Clone, Default)]
-pub struct Bag<Item>(Option<LinkedList<Item>>);
+pub struct Bag<Value>(Option<LinkedList<Value>>);
 
-impl<Item> Bag<Item> {
+pub struct Iter<'value, Value>(linked_list::Iter<'value, Value>);
+
+impl<Value> Bag<Value> {
   pub fn new() -> Self {
     Bag(None)
   }
 
-  pub fn add(&mut self, val: Item) -> &Self {
+  pub fn add(&mut self, val: Value) -> &Self {
     let Bag(ref mut head) = self;
     if head.is_none() {
       *head = Some(LinkedList::from([val]));
     } else {
-      head.as_mut().expect("Unavailable head node").push_back(val);
+      head
+        .as_mut()
+        .expect("head should be available")
+        .push_back(val);
     }
     self
+  }
+
+  pub fn delete(&self) {
+    unimplemented!("Bag structure doesn't support delete element.")
   }
 
   pub fn is_empty(&self) -> bool {
@@ -31,7 +40,9 @@ impl<Item> Bag<Item> {
     let Bag(ref head) = self;
     if head.is_some() {
       let mut count = 0usize;
-      let head = head.as_ref().expect("Unavailable head node");
+      let head = head
+        .as_ref()
+        .expect("head should be available in the iteration");
       for _ in head {
         count += 1;
       }
@@ -41,9 +52,19 @@ impl<Item> Bag<Item> {
     }
   }
 
-  // pub fn remove(&self) {
-  //   unimplemented!("Bag doesn't support delete operation.")
-  // }
+  pub fn iter(&self) -> Iter<'_, Value> {
+    let Bag(ref head) = self;
+    Iter(head.as_ref().expect("head should be available").iter())
+  }
+}
+
+impl<'value, Value> Iterator for Iter<'value, Value> {
+  type Item = &'value Value;
+
+  fn next(&mut self) -> Option<Self::Item> {
+    let Iter(ref mut iter) = self;
+    iter.next()
+  }
 }
 
 #[cfg(test)]
@@ -59,6 +80,23 @@ mod tests {
 
     for val in 0..10 {
       bag.add(val);
+    }
+
+    assert!(!bag.is_empty());
+    assert_eq!(bag.len(), 10);
+  }
+
+  #[test]
+  fn test_iter() {
+    let mut bag = Bag::new();
+
+    for input in 0..10 {
+      bag.add(input);
+    }
+
+    let mut iter = bag.iter();
+    for expect in 0..10 {
+      assert_eq!(iter.next(), Some(&expect));
     }
 
     assert!(!bag.is_empty());
