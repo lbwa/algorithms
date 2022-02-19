@@ -1,26 +1,25 @@
 use crate::bag::Bag;
 
+type Vertex = usize;
 /// [Directed graph](https://algs4.cs.princeton.edu/42digraph/)
 #[derive(Default)]
 pub struct Digraph {
-  pub vectors: usize,
+  pub vertexes: usize,
   pub edges: usize,
 
-  adjacency_list: Vec<Bag<Vector>>,
+  adjacency_list: Vec<Bag<Vertex>>,
 }
 
-type Vector = usize;
-
 impl Digraph {
-  pub fn new(max_vectors: usize) -> Self {
+  pub fn new(threshold: usize) -> Self {
     Self {
-      vectors: max_vectors,
+      vertexes: threshold,
       edges: 0,
-      adjacency_list: vec![Bag::new(); max_vectors],
+      adjacency_list: vec![Bag::new(); threshold],
     }
   }
 
-  pub fn add_edge(&mut self, v: Vector, w: Vector) {
+  pub fn add_edge(&mut self, v: Vertex, w: Vertex) {
     // 与无向图不同的是，仅有 v->w 需要加入到 v 的邻接表中，进而表示出 w 是 v 有效的邻接顶点
     self.adjacency_list[v].add(w);
     self.edges += 1;
