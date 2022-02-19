@@ -9,6 +9,8 @@ pub struct Bag<Value>(Option<LinkedList<Value>>);
 
 pub struct Iter<'value, Value>(linked_list::Iter<'value, Value>);
 
+pub struct IterMut<'value, Value>(linked_list::IterMut<'value, Value>);
+
 impl<Value> Bag<Value> {
   pub fn new() -> Self {
     Bag(None)
@@ -56,6 +58,11 @@ impl<Value> Bag<Value> {
     let Bag(ref head) = self;
     Iter(head.as_ref().expect("head should be available").iter())
   }
+
+  pub fn iter_mut(&mut self) -> IterMut<'_, Value> {
+    let Bag(ref mut head) = self;
+    IterMut(head.as_mut().expect("head should be available").iter_mut())
+  }
 }
 
 impl<'value, Value> Iterator for Iter<'value, Value> {
@@ -63,6 +70,15 @@ impl<'value, Value> Iterator for Iter<'value, Value> {
 
   fn next(&mut self) -> Option<Self::Item> {
     let Iter(ref mut iter) = self;
+    iter.next()
+  }
+}
+
+impl<'value, Value> Iterator for IterMut<'value, Value> {
+  type Item = &'value mut Value;
+
+  fn next(&mut self) -> Option<Self::Item> {
+    let IterMut(ref mut iter) = self;
     iter.next()
   }
 }
@@ -98,6 +114,25 @@ mod tests {
     for expect in 0..10 {
       assert_eq!(iter.next(), Some(&expect));
     }
+    assert_eq!(iter.next(), None);
+
+    assert!(!bag.is_empty());
+    assert_eq!(bag.len(), 10);
+  }
+
+  #[test]
+  fn test_iter_mut() {
+    let mut bag = Bag::new();
+
+    for input in 0..10 {
+      bag.add(input);
+    }
+
+    let mut iter = bag.iter_mut();
+    for mut expect in 0..10 {
+      assert_eq!(iter.next(), Some(&mut expect));
+    }
+    assert_eq!(iter.next(), None);
 
     assert!(!bag.is_empty());
     assert_eq!(bag.len(), 10);
