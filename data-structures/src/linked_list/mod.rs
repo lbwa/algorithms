@@ -5,13 +5,6 @@ pub struct ListNode<Value> {
   pub next: Link<Value>,
 }
 
-impl<Value> ListNode<Value> {
-  #[inline]
-  pub fn new(val: Value) -> Self {
-    ListNode { val, next: None }
-  }
-}
-
 /// [Impl in Rust std](https://doc.rust-lang.org/std/collections/struct.LinkedList.html)
 pub struct LinkedList<Value> {
   head: Link<Value>,
@@ -21,6 +14,17 @@ pub struct IntoIter<Value>(LinkedList<Value>);
 
 pub struct Iter<'node, Value> {
   next: Option<&'node ListNode<Value>>,
+}
+
+pub struct IterMut<'node, Value> {
+  next: Option<&'node mut ListNode<Value>>,
+}
+
+impl<Value> ListNode<Value> {
+  #[inline]
+  pub fn new(val: Value) -> Self {
+    ListNode { val, next: None }
+  }
 }
 
 impl<Value> Default for LinkedList<Value> {
@@ -124,7 +128,16 @@ impl<Value> LinkedList<Value> {
 
   pub fn iter(&self) -> Iter<Value> {
     Iter {
+      // 常见智能指针 Box, Rc, RefCell 均实现了 Deref trait 用于直接通过解引用智能指针就可得到包裹值得目的。
+      // https://doc.rust-lang.org/1.58.1/src/alloc/boxed.rs.html#1605-1612
+      // self.head.as_deref() 等价于 self.head.as_ref().map(|t| &**t)
       next: self.head.as_deref(),
+    }
+  }
+
+  pub fn iter_mut(&mut self) -> IterMut<Value> {
+    IterMut {
+      next: self.head.as_deref_mut(),
     }
   }
 }
@@ -142,8 +155,24 @@ impl<'node, Value> Iterator for Iter<'node, Value> {
 
   fn next(&mut self) -> Option<Self::Item> {
     self.next.map(|node| {
+      // https://doc.rust-lang.org/1.58.1/src/alloc/boxed.rs.html#1605-1612
+      // node.next.as_deref() 等价于 node.next.as_ref().map(|t| &**t);
       self.next = node.next.as_deref();
       &node.val
+    })
+  }
+}
+
+impl<'node, Value> Iterator for IterMut<'node, Value> {
+  type Item = &'node mut Value;
+
+  fn next(&mut self) -> Option<Self::Item> {
+    // we `take()` the Option<&mut>` so we have exclusive access to the mutable
+    // reference.
+    self.next.take().map(|node| {
+      // use `next` to cache iterator candidate
+      self.next = node.next.as_deref_mut();
+      &mut node.val
     })
   }
 }
@@ -275,5 +304,31 @@ mod tests {
     for _ in 0..2 {
       assert_eq!(iter.next(), None)
     }
+
+    assert!(
+      linked_list.head.is_some(),
+      "linked list head should be available."
+    );
+  }
+
+  #[test]
+  fn test_iter_mut() {
+    let mut linked_list = LinkedList::new();
+    for input in 0..4 {
+      linked_list.push_back(input);
+    }
+
+    let mut iter = linked_list.iter_mut();
+    for mut expect in 0..4 {
+      assert_eq!(iter.next(), Some(&mut expect));
+    }
+
+    for _ in 0..2 {
+      assert_eq!(iter.next(), None);
+    }
+    assert!(
+      linked_list.head.is_some(),
+      "linked list head should be available."
+    );
   }
 }
