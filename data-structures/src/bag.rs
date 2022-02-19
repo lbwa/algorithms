@@ -4,7 +4,7 @@ use std::collections::{linked_list, LinkedList};
 ///
 /// - https://algs4.cs.princeton.edu/13stacks/
 /// - https://algs4.cs.princeton.edu/13stacks/Bag.java.html
-#[derive(Debug, Clone, Default)] // TODO: remove Clone
+#[derive(Debug, Default)]
 pub struct Bag<Value>(Option<LinkedList<Value>>);
 
 pub struct Iter<'value, Value>(linked_list::Iter<'value, Value>);

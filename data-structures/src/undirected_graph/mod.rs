@@ -1,4 +1,5 @@
 use crate::bag::Bag;
+use std::collections::HashMap;
 
 pub type Vertex = usize;
 /// https://algs4.cs.princeton.edu/41graph/
@@ -13,7 +14,7 @@ pub struct UndirectedGraph {
   /// 为了便于内聚 graph 的关键实现，做出以下简化处理：
   /// 1. 直接使用顶点作为索引，对应的索引值为该顶点的 **所有** 相邻顶点构成的链表；
   /// 2. 用例中邻接链表较短，故直接使用穷举遍历法实现边的检测；
-  adjacency_list: Vec<Bag<Vertex>>,
+  adjacency_list: HashMap<Vertex, Bag<Vertex>>,
 }
 
 impl UndirectedGraph {
@@ -24,24 +25,27 @@ impl UndirectedGraph {
   pub fn add_edge(&mut self, v: Vertex, w: Vertex) {
     // 因为是无向图，故将两个顶点互相加入到对方的链表中，保证每个链表中始终都维护了当下顶点的所有相邻顶点
     for &(a, b) in &[(v, w), (w, v)] {
-      if self.adjacency_list.get(a).is_none() {
-        self.adjacency_list.resize(a + 1, Bag::new());
+      if self.adjacency_list.get(&a).is_none() {
+        self.adjacency_list.insert(a, Bag::new());
         self.vertexes += 1;
       }
-      self.adjacency_list[a].add(b);
+
+      if let Some(adj) = self.adjacency_list.get_mut(&a) {
+        adj.add(b);
+      }
     }
     self.edges += 1;
   }
 
   pub fn adj(&self, v: Vertex) -> Option<&Bag<Vertex>> {
-    self.adjacency_list.get(v)
+    self.adjacency_list.get(&v)
   }
 }
 
 impl UndirectedGraph {
   pub fn degree(&self, v: Vertex) -> usize {
-    if self.adjacency_list.get(v).is_some() {
-      self.adjacency_list[v].len()
+    if self.adjacency_list.get(&v).is_some() {
+      self.adjacency_list[&v].len()
     } else {
       0
     }
