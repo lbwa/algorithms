@@ -3,4 +3,5 @@
 members = [
   "data-structures",
   "subsequence",
+  "sorts"
 ]
