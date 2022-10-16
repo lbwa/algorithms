@@ -1,4 +1,5 @@
 /// ### [Patience sorting](https://en.wikipedia.org/wiki/Patience_sorting)
+/// - 伪代码参考 https://en.wikipedia.org/wiki/Longest_increasing_subsequence#Efficient_algorithms
 /// - 推荐阅读 [DP, Binary search, BIT Solutions - Picture explain](https://leetcode.com/problems/longest-increasing-subsequence/discuss/1326308/C%2B%2BPython-DP-Binary-Search-BIT-Solutions-Picture-explain-O(NlogN))
 /// - [Java/Python Binary Search O(nlogn) time with explanations](https://leetcode.com/problems/longest-increasing-subsequence/discuss/74824/JavaPython-Binary-search-O(nlogn)-time-with-explanation)
 /// - [打印 LIS](https://leetcode.com/problems/longest-increasing-subsequence/discuss/74824/JavaPython-Binary-search-O(nlogn)-time-with-explanation/206357)
@@ -47,6 +48,7 @@ fn test_length_of_lis() {
     })
 }
 
+/// - 伪代码参考 https://en.wikipedia.org/wiki/Longest_increasing_subsequence#Efficient_algorithms
 /// - https://leetcode.com/problems/longest-increasing-subsequence/discuss/1326308/C%2B%2BPython-DP-Binary-Search-BIT-Solutions-Picture-explain-O(NlogN)
 /// - https://www.cs.princeton.edu/courses/archive/spring13/cos423/lectures/LongestIncreasingSubsequence.pdf
 /// - https://leetcode.com/problems/longest-increasing-subsequence/discuss/74824/JavaPython-Binary-search-O(nlogn)-time-with-explanation/206357
