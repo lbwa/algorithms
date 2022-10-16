@@ -1,4 +1,5 @@
 /// https://doc.rust-lang.org/1.64.0/src/alloc/collections/binary_heap.rs.html#266-270
+#[derive(Default)]
 pub struct PriorityQueue(Vec<isize>);
 
 /// https://doc.rust-lang.org/1.64.0/src/alloc/collections/binary_heap.rs.html#359
@@ -49,7 +50,7 @@ impl PriorityQueue {
   }
 }
 
-fn sift_up<E: PartialOrd>(vec: &mut Vec<E>, mut i: usize) {
+fn sift_up<E: PartialOrd>(vec: &mut [E], mut i: usize) {
   // 同层 2k 和 2k + 1 的父级都是 k
   let mut parent = i >> 1;
   while i > 1 && vec[parent] < vec[i] {
@@ -59,7 +60,7 @@ fn sift_up<E: PartialOrd>(vec: &mut Vec<E>, mut i: usize) {
   }
 }
 
-fn sift_down<E: PartialOrd>(vec: &mut Vec<E>, mut i: usize) {
+fn sift_down<E: PartialOrd>(vec: &mut [E], mut i: usize) {
   let mut child = i << 1;
   while child < vec.len() {
     // 因为是大顶堆 ，同层尽可能选择大数上浮

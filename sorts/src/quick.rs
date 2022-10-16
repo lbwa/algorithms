@@ -14,7 +14,7 @@ fn sort<D: Ord>(vec: &mut Vec<D>, start: usize, end: usize) {
   sort(vec, index + 1, end);
 }
 
-fn partition<D: Ord>(vec: &mut Vec<D>, start: usize, end: usize) -> usize {
+fn partition<D: Ord>(vec: &mut [D], start: usize, end: usize) -> usize {
   let mid = start + ((end - start) >> 1);
   vec.swap(mid, end);
   let mut j = start;
