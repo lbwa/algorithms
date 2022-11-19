@@ -36,7 +36,7 @@ Basic algorithms implementations, written by `TypeScript`, `Golang`, `Rust`.
 
 ## Further readings
 
-- [Algorithms 4th - sorting](https://algs4.cs.princeton.edu/20sorting/)
-- [Algorithms 4th - searching](https://algs4.cs.princeton.edu/30searching/)
+- [Algorithms, 4th edition](https://algs4.cs.princeton.edu)
+- [Introduction to Algorithms, 4th edition](https://a.co/d/hlWQ1Hc)
 - [toptal.com - sorting algorithms](https://www.toptal.com/developers/sorting-algorithms)
-- [algorithm-visualizer](https://algorithm-visualizer.org)
+- [algorithm-visualizer.org](https://algorithm-visualizer.org)
