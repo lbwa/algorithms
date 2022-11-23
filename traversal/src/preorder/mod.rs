@@ -1,12 +1,15 @@
 use data_structures::binary_tree::TreeNode;
 
-pub fn iterative_preorder(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+pub fn iterative_preorder<T>(root: &Option<Box<TreeNode<T>>>) -> Vec<T>
+where
+  T: Copy,
+{
   let mut stack = Vec::from([root]);
   let mut ans = vec![];
 
   while !stack.is_empty() {
     if let Some(current) = stack.pop() {
-      ans.push(current.as_ref().unwrap().val);
+      ans.push(current.as_ref().unwrap().val.to_owned());
       if current.as_ref().unwrap().right.is_some() {
         stack.push(&current.as_ref().unwrap().right);
       }
@@ -14,14 +17,17 @@ pub fn iterative_preorder(root: &Option<Box<TreeNode>>) -> Vec<i32> {
         stack.push(&current.as_ref().unwrap().left);
       }
     } else {
-      unreachable!();
+      unreachable!("stack should not contain None");
     }
   }
 
   ans
 }
 
-pub fn recursive_preorder(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+pub fn recursive_preorder<T>(root: &Option<Box<TreeNode<T>>>) -> Vec<T>
+where
+  T: Copy,
+{
   let mut ans = vec![];
   if let Some(node) = root {
     ans.push(node.val);

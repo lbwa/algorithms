@@ -1,13 +1,13 @@
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct TreeNode {
-  pub val: i32,
-  pub left: Option<Box<TreeNode>>,
-  pub right: Option<Box<TreeNode>>,
+pub struct TreeNode<T = i32> {
+  pub val: T,
+  pub left: Option<Box<TreeNode<T>>>,
+  pub right: Option<Box<TreeNode<T>>>,
 }
 
-impl TreeNode {
+impl<T> TreeNode<T> {
   #[inline]
-  pub fn new(val: i32) -> Self {
+  pub fn new(val: T) -> Self {
     TreeNode {
       val,
       left: None,
