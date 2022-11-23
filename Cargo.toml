@@ -3,5 +3,6 @@
 members = [
   "data-structures",
   "subsequence",
-  "sorts"
+  "sorts",
+  "traversal"
 ]
